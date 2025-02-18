@@ -7,22 +7,29 @@ public class PlayerMovementScript : MonoBehaviour
     private bool canJump = false;
     public float jumpForce;
     public bool isBugged;
-    private Vector3 tempForce;
+    private bool afterBug;
+
 
     void Update()
     {
+        if(Input.GetKey(KeyCode.RightArrow)) isBugged = true;
+        else isBugged= false;
         // IF THERE IS A BUG.....
         if (isBugged)
         {
-            tempForce = rb.velocity;
             rb.velocity = Vector3.zero;
             rb.gravityScale = 0f;
-            rb.isKinematic = true;
+            afterBug = true;
         }
         else
         {
-            rb.isKinematic = false;
-            rb.velocity = tempForce;
+            if(afterBug)
+            {
+                afterBug = false;
+                rb.gravityScale = 1f;
+                transform.position = new Vector2(-5f, -0.9f);
+                DeletePrefabs();
+            }
             rb.gravityScale = 1f;
             if (Input.GetKey(KeyCode.UpArrow) && canJump)
             {
@@ -52,6 +59,16 @@ public class PlayerMovementScript : MonoBehaviour
     {
         col.offset = new Vector2(col.offset.x, -0.3f);
         col.size = new Vector2(col.size.x, 0.3f);
+    }
+
+    private void DeletePrefabs()
+    {
+        GameObject[] prefabs = GameObject.FindGameObjectsWithTag("Obstacle");
+
+        foreach (GameObject obj in prefabs)
+        {
+            Destroy(obj);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
