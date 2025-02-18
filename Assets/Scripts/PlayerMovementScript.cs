@@ -13,6 +13,16 @@ public class PlayerMovementScript : MonoBehaviour
         {
             Jump();
         }
+
+        if(Input.GetKey(KeyCode.DownArrow))
+        {
+            Duck();
+        }
+        else
+        {
+            col.offset = new Vector2(col.offset.x, 0);
+            col.size = new Vector2(col.size.x, 1);
+        }
     }
 
     private void Jump()
@@ -24,7 +34,8 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void Duck()
     {
-
+        col.offset = new Vector2(col.offset.x, -0.3f);
+        col.size = new Vector2(col.size.x, 0.3f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -33,6 +44,10 @@ public class PlayerMovementScript : MonoBehaviour
         {
             Debug.Log("Can jump loh");
             canJump = true;
+        }
+        if(collision.gameObject.CompareTag("Obstacle"))
+        {
+            Debug.Log("GAME OVER!!!");
         }
     }
 }
