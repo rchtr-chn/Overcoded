@@ -292,6 +292,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &906213715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 906213717}
+  - component: {fileID: 906213716}
+  m_Layer: 0
+  m_Name: Obstacle-Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &906213716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906213715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13e847026dadbe14c969f08c420c0167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6121236755495825853, guid: 6787fc8861f4804459d0e0da69509dcb, type: 3}
+  timerCap: 2
+--- !u!4 &906213717
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906213715}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.79, y: -1.12, z: -1.3773869}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1072185949
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,8 +369,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1160564607}
   - {fileID: 1796358287}
+  - {fileID: 1160564607}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -446,7 +492,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &1160564606
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -471,7 +517,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 49, y: 107}
+  m_AnchoredPosition: {x: 49, y: 195}
   m_SizeDelta: {x: 1377.5, y: 85.5118}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1472191067
@@ -483,11 +529,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1472191069}
-  - component: {fileID: 1472191068}
   - component: {fileID: 1472191072}
   - component: {fileID: 1472191071}
   - component: {fileID: 1472191070}
+  - component: {fileID: 1472191068}
   - component: {fileID: 1472191073}
+  - component: {fileID: 1472191074}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -663,6 +710,21 @@ MonoBehaviour:
   rb: {fileID: 1472191071}
   col: {fileID: 1472191070}
   jumpForce: 6
+  isBugged: 0
+--- !u!114 &1472191074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472191067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c30897f66461164a8ff5209ace2f0eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovementScript: {fileID: 1472191073}
+  playerTypingScript: {fileID: 1472191068}
 --- !u!1 &1796358286
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,7 +759,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 48.998596, y: 193}
+  m_AnchoredPosition: {x: 49, y: 195}
   m_SizeDelta: {x: 1377.5002, y: 85.5118}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1796358288
@@ -713,7 +775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4943396, g: 0.4943396, b: 0.4943396, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -733,7 +795,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &1796358289
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -819,3 +881,4 @@ SceneRoots:
   - {fileID: 2040253794}
   - {fileID: 1472191069}
   - {fileID: 163996931}
+  - {fileID: 906213717}

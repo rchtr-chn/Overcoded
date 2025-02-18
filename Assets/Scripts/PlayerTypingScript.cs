@@ -7,6 +7,7 @@ public class PlayerTypingScript : MonoBehaviour
 
     public Text promptText;
     public Text inputText;
+    public PlayerMovementScript playerMovementScript;
 
     private string currentPrompt = string.Empty;
     private string currentInput = string.Empty;
@@ -37,6 +38,10 @@ public class PlayerTypingScript : MonoBehaviour
             {
                 currentInput = string.Empty;
                 inputText.text = currentInput;
+                if(CodeValidity())
+                {
+                    playerMovementScript.isBugged = false;
+                }
                 return;
                 //GET NEW PROMPT HERE!!!! & CHECK FOR ERROR IN CODE
             }
@@ -54,5 +59,17 @@ public class PlayerTypingScript : MonoBehaviour
             }
 
         }
+    }
+
+    private bool CodeValidity()
+    {
+        for(int i = 0; i < currentPrompt.Length; i++)
+        {
+            if (currentInput[i] != currentPrompt[i])
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -6,22 +6,38 @@ public class PlayerMovementScript : MonoBehaviour
     public BoxCollider2D col;
     private bool canJump = false;
     public float jumpForce;
+    public bool isBugged;
+    private Vector3 tempForce;
 
     void Update()
     {
-        if(Input.GetKey(KeyCode.UpArrow) && canJump)
+        // IF THERE IS A BUG.....
+        if (isBugged)
         {
-            Jump();
-        }
-
-        if(Input.GetKey(KeyCode.DownArrow))
-        {
-            Duck();
+            tempForce = rb.velocity;
+            rb.velocity = Vector3.zero;
+            rb.gravityScale = 0f;
+            rb.isKinematic = true;
         }
         else
         {
-            col.offset = new Vector2(col.offset.x, 0);
-            col.size = new Vector2(col.size.x, 1);
+            rb.isKinematic = false;
+            rb.velocity = tempForce;
+            rb.gravityScale = 1f;
+            if (Input.GetKey(KeyCode.UpArrow) && canJump)
+            {
+                Jump();
+            }
+
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                Duck();
+            }
+            else
+            {
+                col.offset = new Vector2(col.offset.x, 0);
+                col.size = new Vector2(col.size.x, 1);
+            }
         }
     }
 
