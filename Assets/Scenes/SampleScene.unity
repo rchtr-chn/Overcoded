@@ -426,8 +426,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f39f483470fdf44b88015ebe544749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wordOutput: {fileID: 1160564605}
-  prompt: {fileID: 1796358288}
+  promptText: {fileID: 1796358288}
+  inputText: {fileID: 1160564605}
 --- !u!4 &1472191069
 Transform:
   m_ObjectHideFlags: 0
