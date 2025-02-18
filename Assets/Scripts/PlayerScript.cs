@@ -44,6 +44,11 @@ public class PlayerScript : MonoBehaviour
     {
         if(Input.anyKeyDown)
         {
+            if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                Debug.Log("ENTER was pressed");
+                return;
+            }
 
             string keyPressed = Input.inputString;
 
@@ -61,7 +66,7 @@ public class PlayerScript : MonoBehaviour
             AddLetter(typedLetter);
             RemoveLetter();
 
-            if(IsComplete())
+            if(IsComplete() && Input.GetKeyDown(KeyCode.Return))
             {
                 inputString = string.Empty;
                 SetCurrentWord();
