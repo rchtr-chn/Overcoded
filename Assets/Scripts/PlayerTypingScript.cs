@@ -38,12 +38,14 @@ public class PlayerTypingScript : MonoBehaviour
             {
                 currentInput = string.Empty;
                 inputText.text = currentInput;
+
+                //CHECKS ERROR IN CODE INPUT
                 if(CodeValidity())
                 {
                     playerMovementScript.isBugged = false;
                 }
                 return;
-                //GET NEW PROMPT HERE!!!! & CHECK FOR ERROR IN CODE
+                //GET NEW PROMPT HERE!!!!
             }
             else if (c == '\b' && currentInput.Length > 0)
             {
