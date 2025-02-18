@@ -1,33 +1,20 @@
-using System.Threading;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerMovementScript : MonoBehaviour
 {
     public Rigidbody2D rb;
     public BoxCollider2D col;
     private bool canJump = false;
-    public bool isAlive = true;
     public float jumpForce;
     public bool isBugged;
     private bool afterBug;
 
-    public WaveScript waveScript;
-    public AudioManagerScript audioScript;
-
-    private void Start()
-    {
-        if(waveScript == null)
-        {
-            waveScript = GetComponent<WaveScript>();
-        }
-        if(audioScript == null) audioScript = GameObject.Find("Audio Manager").GetComponent<AudioManagerScript>();
-    }
-
 
     void Update()
     {
-        BugEvent();
+        if(Input.GetKey(KeyCode.RightArrow)) isBugged = true;
+        else isBugged= false;
+        // IF THERE IS A BUG.....
         if (isBugged)
         {
             rb.velocity = Vector3.zero;
@@ -40,42 +27,24 @@ public class PlayerMovementScript : MonoBehaviour
             {
                 afterBug = false;
                 rb.gravityScale = 1f;
-                transform.position = new Vector2(-7f, -0.49f);
+                transform.position = new Vector2(-5f, -0.9f);
                 DeletePrefabs();
             }
-
             rb.gravityScale = 1f;
-
-            if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && canJump)
+            if (Input.GetKey(KeyCode.UpArrow) && canJump)
             {
-                audioScript.PlaySfx(audioScript.jump);
                 Jump();
             }
 
-            if ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)))
+            if (Input.GetKey(KeyCode.DownArrow))
             {
                 Duck();
             }
             else
             {
-                Vector3 newScale = transform.localScale;
-                newScale.x = 1f;
-                newScale.y = 1f;
-                transform.localScale = newScale;
+                col.offset = new Vector2(col.offset.x, 0);
+                col.size = new Vector2(col.size.x, 1);
             }
-        }
-    }
-
-    private void BugEvent()
-    {
-        if(waveScript.totalElapsedTime % 15f < 1f && waveScript.totalElapsedTime > 1f && !isBugged)
-        {
-            //int rand = Random.Range(0, 5);
-            //Debug.Log("HIT! RAND : " + rand);
-            //if(rand == 4)
-            //{
-                isBugged = true;
-            //}
         }
     }
 
@@ -88,10 +57,8 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void Duck()
     {
-        Vector3 newScale = transform.localScale;
-        newScale.x = 1.3f;
-        newScale.y = 0.4f;
-        transform.localScale = newScale;
+        col.offset = new Vector2(col.offset.x, -0.3f);
+        col.size = new Vector2(col.size.x, 0.3f);
     }
 
     private void DeletePrefabs()
@@ -113,11 +80,7 @@ public class PlayerMovementScript : MonoBehaviour
         }
         if(collision.gameObject.CompareTag("Obstacle"))
         {
-            isAlive = false;
-            audioScript.musicSource.Stop();
-            audioScript.PlaySfx(audioScript.death);
             Debug.Log("GAME OVER!!!");
-            SceneManager.LoadScene(2);
         }
     }
 }
