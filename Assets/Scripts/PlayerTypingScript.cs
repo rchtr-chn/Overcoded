@@ -14,7 +14,7 @@ public class PlayerTypingScript : MonoBehaviour
     {
 
         //initialize coding minigame, CHANGE WHEN WORDBANK IS ADDED
-        GetNewPrompt("test");
+        GetNewPrompt("player.health -= damage / defense");
     }
 
     void Update()
@@ -32,6 +32,7 @@ public class PlayerTypingScript : MonoBehaviour
     {
         foreach (char c in Input.inputString)
         {
+
             if (c == '\n' || c == '\r')
             {
                 currentInput = string.Empty;
