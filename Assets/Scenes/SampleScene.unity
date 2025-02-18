@@ -406,7 +406,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1472191069}
-  - component: {fileID: 1472191068}
+  - component: {fileID: 1472191070}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -414,20 +414,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1472191068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1472191067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3f39f483470fdf44b88015ebe544749, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wordOutput: {fileID: 1160564605}
-  prompt: {fileID: 1796358288}
 --- !u!4 &1472191069
 Transform:
   m_ObjectHideFlags: 0
@@ -443,6 +429,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1472191070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472191067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abe0c9f887842e4c892e1d76b9bf6ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptText: {fileID: 1796358288}
+  inputText: {fileID: 1160564605}
 --- !u!1 &1796358286
 GameObject:
   m_ObjectHideFlags: 0
