@@ -556,6 +556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptText: {fileID: 1796358288}
   inputText: {fileID: 1160564605}
+  playerMovementScript: {fileID: 0}
 --- !u!4 &1472191069
 Transform:
   m_ObjectHideFlags: 0
@@ -565,7 +566,7 @@ Transform:
   m_GameObject: {fileID: 1472191067}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.9, y: -0.69, z: -0.66466576}
+  m_LocalPosition: {x: -5, y: -0.69, z: -0.66466576}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
