@@ -39,10 +39,10 @@ MonoBehaviour:
     value: 5
   focalLength:
     overrideState: 1
-    value: 300
+    value: 1
   kernelSize:
     overrideState: 1
-    value: 1
+    value: 0
 --- !u!114 &4599800350836369728
 MonoBehaviour:
   m_ObjectHideFlags: 3
