@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WaveScript : MonoBehaviour
 {
+    float timer;
+
     // Start is called before the first frame update
     void Start()
     {
