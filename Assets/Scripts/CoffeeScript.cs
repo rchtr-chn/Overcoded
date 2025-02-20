@@ -6,10 +6,8 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class CoffeeScript : MonoBehaviour
 {
-    public WaveScript waveScript;
-
     [Header("Insanity Settings")]
-    public float currentInsanity;
+    [SerializeField] private float currentInsanity;
     public float decreaseRate = 1f;
     public float maxInsanity = 100f;
     public float lowInsanityThreshold = 50f; 
@@ -22,54 +20,28 @@ public class CoffeeScript : MonoBehaviour
 
     [Header("Post Processing")]
     [SerializeField] private float currentFocalLength;
-    public float currentColorFilter;
-    public float maxColorFilter = 150f;
     public PostProcessProfile postProcessProfile;
     private DepthOfField depthOfField;
     private ColorGrading colorGrading;
 
+    [Header("Blinking Effect")]
+    public float minBlinkInterval = 10f;
+    public float maxBlinkInterval = 15f;
+    public float blinkDuration = 2f;
+    private float blinkTimer;
+    private Coroutine blinkCoroutine;
+
     void Start()
     {
-        if(waveScript == null) waveScript = GameObject.Find("Player").GetComponent<WaveScript>();
-
-        currentColorFilter = maxColorFilter;
         currentInsanity = maxInsanity;
         postProcessProfile.TryGetSettings(out depthOfField);
         postProcessProfile.TryGetSettings(out colorGrading);
         colorGrading.colorFilter.value = new Color(150f / 255f, 150f / 255f, 150f / 255f, 1f);
-        depthOfField.focalLength.value = 0f;
+        depthOfField.focalLength.value = 50f;
     }
 
     void Update()
     {
-        if(waveScript.currentWave < 5) return;
-
-        if(waveScript.currentWave == 6)
-        {
-            holdDuration = 3f;
-            maxInsanity = 60f;
-        }
-        else if(waveScript.currentWave == 8)
-        {
-            holdDuration = 5f;
-            maxInsanity = 58f;
-        }
-        else if(waveScript.currentWave == 9)
-        {
-            holdDuration = 5f;
-            maxInsanity = 56f;
-        }
-        else if(waveScript.currentWave == 10)
-        {
-            holdDuration = 5f;
-            maxInsanity = 54f;
-        }
-        else if(waveScript.currentWave > 10)
-        {
-            holdDuration = 5f;
-            maxInsanity = 52f;
-        }
-
         // Drinking System, Hold System
         if (isHolding && currentInsanity <= lowInsanityThreshold) 
         {
@@ -78,7 +50,6 @@ public class CoffeeScript : MonoBehaviour
             if (holdTimer >= holdDuration)
             {
                 currentInsanity = maxInsanity;
-                currentColorFilter = maxColorFilter;
                 holdTimer = 0f;
                 isHolding = false;
             }
@@ -94,19 +65,30 @@ public class CoffeeScript : MonoBehaviour
             currentInsanity -= decreaseRate * Time.deltaTime;
 
             // Decreases Visibility as currentInsanity increases ( only Decreases when Blinking System is not active )
-            currentFocalLength = 100 - currentInsanity;
-            currentColorFilter -= decreaseRate * Time.deltaTime;
-            currentColorFilter = Mathf.Max(currentColorFilter, 20f); 
-            colorGrading.colorFilter.value = new Color(currentColorFilter / 255f, currentColorFilter / 255f, currentColorFilter / 255f, 1f);
-            depthOfField.focalLength.value = currentFocalLength;
+            if (blinkCoroutine == null)
+            {
+                currentFocalLength = 150 - currentInsanity;
+                depthOfField.focalLength.value = currentFocalLength;
+            }
+
+            // Blinking System only activates when Insanity is low
+            if (currentInsanity <= lowInsanityThreshold)
+            {
+                blinkTimer -= Time.deltaTime;
+                if (blinkTimer <= 0 && blinkCoroutine == null)
+                {
+                    blinkCoroutine = StartCoroutine(BlinkEffect());
+                    blinkTimer = Random.Range(minBlinkInterval, maxBlinkInterval);
+                }
+            }
         }
 
         // Permanent Blindness when Insanity reaches 0
         else
         {
-            colorGrading.colorFilter.value = new Color(20f / 255f, 20f / 255f, 20f / 255f, 1f); 
             depthOfField.focalLength.value = 150f;
             isHolding = false; 
+            blinkCoroutine = null;
         }
     }
 
@@ -134,9 +116,15 @@ public class CoffeeScript : MonoBehaviour
         holdCircle.fillAmount = 0f;
     }
 
-    void OnDisable()
+    // Blinking Effect
+    private IEnumerator BlinkEffect()
     {
+        depthOfField.focalLength.value = 300f;
+        colorGrading.colorFilter.value = new Color(20f / 255f, 20f / 255f, 20f / 255f, 1f);
+        yield return new WaitForSeconds(blinkDuration);
+        depthOfField.focalLength.value = currentFocalLength;
         colorGrading.colorFilter.value = new Color(150f / 255f, 150f / 255f, 150f / 255f, 1f);
-        depthOfField.focalLength.value = 0f;
+        yield return new WaitForSeconds(blinkDuration);
+        blinkCoroutine = null;
     }
 }
