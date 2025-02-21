@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
-public class DraggableObject : MonoBehaviour
+public class ChatBubbleScript : MonoBehaviour
 {
     public enum DragDirection { Left, Right, Up, Down }
     public DragDirection allowedDirection;
@@ -18,19 +19,50 @@ public class DraggableObject : MonoBehaviour
     public List<Transform> targetPositions;
     public float moveDuration = 1f;
     private static List<Vector3> occupiedPositions = new List<Vector3>();
+    bool isFree = true;
+
+    public ChatBubbleSpawnerScript chatBubbleSpawnerScript;
 
     void Start()
     {
+        GetTargetPos();
+
         if(spriteRenderer == null)
             spriteRenderer = GetComponent<SpriteRenderer>();
+
+        chatBubbleSpawnerScript = GameObject.Find("Cell-Phone").GetComponent<ChatBubbleSpawnerScript>();
 
         StartCoroutine(FadeIn());
 
         Vector3 availablePosition = FindAvailablePosition();
         if (availablePosition != Vector3.zero)
         {
+            isFree = false;
+            chatBubbleSpawnerScript.availablePos--;
             MoveToTarget(availablePosition);
         }
+    }
+
+    private void Update()
+    {
+        if(isFree)
+        {
+            Vector3 availablePosition = FindAvailablePosition();
+            if (availablePosition != Vector3.zero)
+            {
+                isFree = false;
+                chatBubbleSpawnerScript.availablePos--;
+                MoveToTarget(availablePosition);
+            }
+        }
+    }
+
+    private void GetTargetPos()
+    {
+        targetPositions.Add(GameObject.Find("Chat-Pos-1").GetComponent<Transform>());
+        targetPositions.Add(GameObject.Find("Chat-Pos-2").GetComponent<Transform>());
+        targetPositions.Add(GameObject.Find("Chat-Pos-3").GetComponent<Transform>());
+        targetPositions.Add(GameObject.Find("Chat-Pos-4").GetComponent<Transform>());
     }
 
     void OnMouseDown()
@@ -175,5 +207,6 @@ public class DraggableObject : MonoBehaviour
         }
 
         Destroy(gameObject);
+        chatBubbleSpawnerScript.availablePos++;
     }
 }
