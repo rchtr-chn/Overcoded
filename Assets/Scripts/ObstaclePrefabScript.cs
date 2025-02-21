@@ -6,13 +6,12 @@ using UnityEngine;
 public class ObstaclePrefabScript : MonoBehaviour
 {
     public Rigidbody2D rb;
+    public float speed;
     private PlayerMovementScript playerMovementScript;
-    private ObstacleSpawnerScript obstacleSpawnerScript;
     private Transform spawnerPos;
     void Start()
     {
         playerMovementScript = GameObject.Find("Player").GetComponent<PlayerMovementScript>();
-        obstacleSpawnerScript = GameObject.Find("Obstacle-Spawner").GetComponent<ObstacleSpawnerScript>();
         spawnerPos = GameObject.Find("Obstacle-Spawner").GetComponent<Transform>();
     }
     void Update()
@@ -29,7 +28,7 @@ public class ObstaclePrefabScript : MonoBehaviour
         }
         else
         {
-            rb.velocity = new Vector2(-obstacleSpawnerScript.prefabSpeed, rb.velocity.y);
+            rb.velocity = new Vector2(-speed, rb.velocity.y);
         }
     }
 }
