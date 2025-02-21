@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ChatBubbleSpawnerScript : MonoBehaviour
@@ -10,7 +11,7 @@ public class ChatBubbleSpawnerScript : MonoBehaviour
     int mockWave = 0;
     public int availablePos = 4;
 
-    public void Awake()
+    public void Start()
     {
         waveScript = GameObject.Find("Player").GetComponent<WaveScript>();
     }
@@ -18,7 +19,9 @@ public class ChatBubbleSpawnerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(mockWave < waveScript.currentWave && waveScript.currentWave > 6)
+        if (waveScript.currentWave < 7) return;
+
+        if (mockWave < waveScript.currentWave && waveScript.currentWave > 6)
         {
             if (waveScript.currentWave == 7)
             {
@@ -44,7 +47,7 @@ public class ChatBubbleSpawnerScript : MonoBehaviour
                     toSpawn.Add(prefab);
                 }
             }
-            if (waveScript.currentWave >= 10)
+            else if (waveScript.currentWave >= 10)
             {
                 mockWave = waveScript.currentWave;
                 for (int i = 0; i < 7 + 2 * (waveScript.currentWave - 10); i++)

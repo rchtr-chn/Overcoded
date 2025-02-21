@@ -9,9 +9,8 @@ public class WaveScript : MonoBehaviour
 
     void Update()
     {
-        //totalElapsedTime += Time.deltaTime;
-        //currentWave = GetCurrentWave(totalElapsedTime);
-        currentWave = 9;
+        totalElapsedTime += Time.deltaTime;
+        currentWave = GetCurrentWave(totalElapsedTime);
         Debug.Log($"Current Wave: {currentWave} | Elapsed Time: {totalElapsedTime:F2} sec");
     }
 

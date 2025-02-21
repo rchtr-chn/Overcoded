@@ -207,6 +207,7 @@ public class ChatBubbleScript : MonoBehaviour
         }
 
         Destroy(gameObject);
+        occupiedPositions.RemoveAt(0);
         chatBubbleSpawnerScript.availablePos++;
     }
 }

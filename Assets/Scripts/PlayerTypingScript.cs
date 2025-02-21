@@ -36,16 +36,18 @@ public class PlayerTypingScript : MonoBehaviour
 
             if (c == '\n' || c == '\r')
             {
+                if (CodeValidity())
+                {
+                    playerMovementScript.isBugged = false;
+
+                    //CHECKS ERROR IN CODE INPUT
+                }
+
                 currentInput = string.Empty;
                 inputText.text = currentInput;
 
-                //CHECKS ERROR IN CODE INPUT
-                if(CodeValidity())
-                {
-                    playerMovementScript.isBugged = false;
-                }
-                return;
                 //GET NEW PROMPT HERE!!!!
+                return;
             }
             else if (c == '\b' && currentInput.Length > 0)
             {
@@ -65,12 +67,9 @@ public class PlayerTypingScript : MonoBehaviour
 
     private bool CodeValidity()
     {
-        for(int i = 0; i < currentPrompt.Length; i++)
+        if(currentInput == currentPrompt)
         {
-            if (currentInput[i] != currentPrompt[i])
-            {
-                return false;
-            }
+            return false;
         }
         return true;
     }
