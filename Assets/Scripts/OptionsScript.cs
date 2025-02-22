@@ -7,6 +7,9 @@ public class OptionsScript : MonoBehaviour
 {
     public TMPro.TMP_Dropdown resDropdown;
     Resolution[] resolutions;
+    [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private Slider musicSlider;
+
     private void Start()
     {
         resolutions = Screen.resolutions;
@@ -21,7 +24,7 @@ public class OptionsScript : MonoBehaviour
             string option = resolutions[i].width + "x" + resolutions[i].height;
             options.Add(option);
 
-            if(resolutions[i].width ==  Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
             {
                 currentResolutionIndex = i;
             }
@@ -35,4 +38,11 @@ public class OptionsScript : MonoBehaviour
     {
         Screen.fullScreen = isFullscreen;
     }
+    
+    public void setmusicVolume(float volume)
+    {
+        audioMixer.SetFloat("volume", Mathf.Log10(volume)*10);
+    }
 }
+
+
