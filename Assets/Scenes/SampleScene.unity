@@ -826,8 +826,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptText: {fileID: 1796358288}
-  inputText: {fileID: 0}
-  playerMovementScript: {fileID: 0}
+  inputText: {fileID: 1452423441}
+  playerMovementScript: {fileID: 1472191073}
 --- !u!4 &1472191069
 Transform:
   m_ObjectHideFlags: 0
