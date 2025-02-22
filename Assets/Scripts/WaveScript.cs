@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaveScript : MonoBehaviour
 {
-    private float totalElapsedTime = 0f;
+    public float totalElapsedTime = 0f;
     public int currentWave;
 
     void Update()

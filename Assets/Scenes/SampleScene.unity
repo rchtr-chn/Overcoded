@@ -358,7 +358,9 @@ MonoBehaviour:
   - {fileID: 6121236755495825853, guid: b1d3cc8745d9cbf43bafde7562283a14, type: 3}
   spawnPos: {x: 10, y: -0.7, z: 0}
   spawnPosInv: {x: 10, y: 0.3, z: 0}
+  prefabSpeed: 5
   timerCap: 2
+  isBugScript: {fileID: 0}
 --- !u!4 &906213717
 Transform:
   m_ObjectHideFlags: 0
@@ -707,7 +709,6 @@ GameObject:
   - component: {fileID: 1452423439}
   - component: {fileID: 1452423442}
   - component: {fileID: 1452423441}
-  - component: {fileID: 1452423440}
   m_Layer: 5
   m_Name: Player-Input
   m_TagString: Untagged
@@ -734,21 +735,6 @@ RectTransform:
   m_AnchoredPosition: {x: 50, y: 195}
   m_SizeDelta: {x: 1375, y: 85}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1452423440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1452423438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3f39f483470fdf44b88015ebe544749, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  promptText: {fileID: 1796358288}
-  inputText: {fileID: 1452423441}
-  playerMovementScript: {fileID: 1472191073}
 --- !u!114 &1452423441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,6 +814,7 @@ MonoBehaviour:
   promptText: {fileID: 1796358288}
   inputText: {fileID: 1452423441}
   playerMovementScript: {fileID: 1472191073}
+  obstacleSpawnerScript: {fileID: 0}
 --- !u!4 &1472191069
 Transform:
   m_ObjectHideFlags: 0
@@ -983,6 +970,7 @@ MonoBehaviour:
   col: {fileID: 1472191070}
   jumpForce: 6
   isBugged: 0
+  waveScript: {fileID: 0}
 --- !u!114 &1472191074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -995,6 +983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c452604e119efa4bb9df3baed2ba97a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalElapsedTime: 0
   currentWave: 0
 --- !u!1 &1796358286
 GameObject:

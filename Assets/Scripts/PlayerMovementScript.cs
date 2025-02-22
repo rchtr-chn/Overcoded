@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 public class PlayerMovementScript : MonoBehaviour
@@ -9,12 +10,20 @@ public class PlayerMovementScript : MonoBehaviour
     public bool isBugged;
     private bool afterBug;
 
+    public WaveScript waveScript;
+
+    private void Start()
+    {
+        if(waveScript == null)
+        {
+            waveScript = GetComponent<WaveScript>();
+        }
+    }
+
 
     void Update()
     {
-        if(Input.GetKey(KeyCode.RightArrow)) isBugged = true;
-        else isBugged= false;
-        // IF THERE IS A BUG.....
+        BugEvent();
         if (isBugged)
         {
             rb.velocity = Vector3.zero;
@@ -45,6 +54,19 @@ public class PlayerMovementScript : MonoBehaviour
                 col.offset = new Vector2(col.offset.x, 0);
                 col.size = new Vector2(col.size.x, 1);
             }
+        }
+    }
+
+    private void BugEvent()
+    {
+        if(waveScript.totalElapsedTime % 10f < 1f && waveScript.totalElapsedTime > 1f && !isBugged)
+        {
+            //int rand = Random.Range(0, 5);
+            //Debug.Log("HIT! RAND : " + rand);
+            //if(rand == 4)
+            //{
+                isBugged = true;
+            //}
         }
     }
 

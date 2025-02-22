@@ -50,26 +50,31 @@ public class PlayerTypingScript : MonoBehaviour
         "ClearLeaks();", "OptimizeMemoryUsage();", "PurgeCache();",
         "CompactData();", "FixOverload();", "StabilizeFrames();",
         "ResetHeap();", "DisableGarbage();", "EnableCompression();"
-
-
-
     };
 
     public Text promptText;
     public Text inputText;
     public PlayerMovementScript playerMovementScript;
+    public ObstacleSpawnerScript obstacleSpawnerScript;
 
     private string currentPrompt = string.Empty;
     private string currentInput = string.Empty;
     void Start()
     {
+
         //initialize coding minigame, CHANGE WHEN WORDBANK IS ADDED
+        obstacleSpawnerScript = GameObject.Find("Obstacle-Spawner").GetComponent<ObstacleSpawnerScript>();
         GetNewPrompt(wordBank[Random.Range(0, wordBank.Count())]);
+        InvisibleText();
     }
 
     void Update()
     {
-        TypeInput();
+        if(playerMovementScript.isBugged)
+        {
+            VisibleText();
+            TypeInput();
+        }
     }
 
     private void GetNewPrompt(string word)
@@ -85,41 +90,62 @@ public class PlayerTypingScript : MonoBehaviour
 
             if (c == '\n' || c == '\r')
             {
-                if (CodeValidity())
-                {
-                    playerMovementScript.isBugged = false;
+                InvisibleText();
 
-                    //CHECKS ERROR IN CODE INPUT
+                if(!CodeValidity())
+                {
+                    obstacleSpawnerScript.prefabSpeed++;
                 }
 
-                currentInput = string.Empty;
-                inputText.text = currentInput;
 
-                //GET NEW PROMPT HERE!!!!
+                currentInput = "";
+                inputText.text = "";
+                playerMovementScript.isBugged = false;
+
+                GetNewPrompt(wordBank[Random.Range(0, wordBank.Count())]);
                 return;
             }
-            else if (c == '\b' && currentInput.Length > 0)
+            else if (c == '\b')
             {
-                currentInput = currentInput.Substring(0, currentInput.Length - 1);
-                inputText.text = currentInput;
+                if(currentInput.Length > 0)
+                {
+                    currentInput = currentInput.Substring(0, currentInput.Length - 1);
+                    inputText.text = currentInput;
+                }
                 return;
             }
 
             if (currentInput.Length < currentPrompt.Length)
             {
-                currentInput = currentInput + c;
+                currentInput += c;
                 inputText.text = currentInput;
             }
 
         }
     }
 
-    private bool CodeValidity()
+    public bool CodeValidity()
     {
         if(currentInput == currentPrompt)
         {
             return true;
         }
         return false;
+    }
+    public void InvisibleText()
+    {
+        Color promptColor = promptText.color;
+        Color inputColor = inputText.color;
+        promptColor.a = inputColor.a = 0f;
+        promptText.color = promptColor;
+        inputText.color = inputColor;
+    }
+    public void VisibleText()
+    {
+        Color promptColor = promptText.color;
+        Color inputColor = inputText.color;
+        promptColor.a = inputColor.a = 1f;
+        promptText.color = promptColor;
+        inputText.color = inputColor;
     }
 }
