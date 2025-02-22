@@ -43,7 +43,6 @@ public class DialogueManagerScript : MonoBehaviour
     {
         if (!isDialogueActive)
         {
-            // Tinggal per wave di ganti jadinya EnterDialogue(index (JADI KALAU WAVE 5, INDEX 0, DLL, NANTI PALING DI WAVE MELEBIHI 11 DIA RANDOM DARI 0-5))
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 EnterDialogue(dialogueIndex);
@@ -52,12 +51,27 @@ public class DialogueManagerScript : MonoBehaviour
             return;
         }
 
-        if (Input.GetMouseButtonDown(0) && !isTyping)
+        if (choicesPanel.activeSelf)
+        {
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                GameObject selectedChoice = EventSystem.current.currentSelectedGameObject;
+                for (int i = 0; i < choices.Length; i++)
+                {
+                    if (choices[i] == selectedChoice)
+                    {
+                        MakeChoice(i);
+                        break;
+                    }
+                }
+            }
+        }
+        else if (Input.GetMouseButtonDown(0) && !isTyping)
         {
             ContinueStory();
         }
     }
-
+    
     public void EnterDialogue(int index)
     {
         currentStory = new Story(inkJSONs[index].text);
@@ -76,11 +90,15 @@ public class DialogueManagerScript : MonoBehaviour
 
     private void ContinueStory()
     {
-        if(currentStory.canContinue)
+        if (currentStory.canContinue)
         {
             StopAllCoroutines();
             choicesPanel.SetActive(false);
             StartCoroutine(TypeSentence(currentStory.Continue()));
+        }
+        else if (currentStory.currentChoices.Count > 0)
+        {
+            DisplayChoices();
         }
         else
         {
@@ -98,7 +116,16 @@ public class DialogueManagerScript : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
         isTyping = false;
-        DisplayChoices();
+        
+        if (currentStory.currentChoices.Count > 0)
+        {
+            DisplayChoices();
+        }
+        else
+        {
+            yield return new WaitForSeconds(2.0f);
+            ExitDialogue();
+        }
     }
 
     private void DisplayChoices()
@@ -131,6 +158,11 @@ public class DialogueManagerScript : MonoBehaviour
 
     public void MakeChoice(int choiceIndex)
     {
-        currentStory.ChooseChoiceIndex(choiceIndex);
+        if (choiceIndex >= 0 && choiceIndex < currentStory.currentChoices.Count)
+        {
+            currentStory.ChooseChoiceIndex(choiceIndex);
+            choicesPanel.SetActive(false);
+            ContinueStory();
+        }
     }
 }
