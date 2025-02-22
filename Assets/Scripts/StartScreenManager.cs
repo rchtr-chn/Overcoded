@@ -8,7 +8,7 @@ public class StartScreenManager : MonoBehaviour
     public GameObject StartManager;
     public Text pressSpace;
     public Transform Target;
-    public float zoomingSpeed = 2f;
+    public float zoomingSpeed;
 
     private bool isZooming = false;
     private Camera mainCamera;
@@ -28,7 +28,7 @@ public class StartScreenManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !isZooming)
         {
             Debug.Log("Space Pressed");
-            StartCoroutine(ZoomIn());
+            StartCoroutine(ZoomIn());   
         }
     }
 
