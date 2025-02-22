@@ -2816,6 +2816,7 @@ MonoBehaviour:
   Target: {fileID: 356007817}
   OptionsTarget: {fileID: 1869514933}
   zoomingSpeed: 10
+  zoomingSpeed2: 50
 --- !u!4 &1639821907
 Transform:
   m_ObjectHideFlags: 0
