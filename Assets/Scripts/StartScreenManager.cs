@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class StartScreenManager : MonoBehaviour
 {
     public GameObject StartManager;
-    public GameObject OptionsMenu; 
+    public GameObject OptionsMenu;
 
     public Text pressSpace;
     public Transform Target;
     public Transform OptionsTarget;
-    public float zoomingSpeed;
+    public float zoomingSpeed;  // Speed for zooming in
+    public float zoomingSpeed2; // Speed for returning to menu
 
     private bool isZooming = false;
     private Camera mainCamera;
@@ -34,11 +35,11 @@ public class StartScreenManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !isZooming)
         {
             Debug.Log("Space Pressed");
-            StartCoroutine(ZoomIn(Target, true));
+            StartCoroutine(ZoomIn(Target, true, zoomingSpeed));
         }
     }
 
-    IEnumerator ZoomIn(Transform newTarget, bool showStartMenu)
+    IEnumerator ZoomIn(Transform newTarget, bool showStartMenu, float speed)
     {
         isZooming = true;
         pressSpace.enabled = false;
@@ -48,7 +49,7 @@ public class StartScreenManager : MonoBehaviour
         float t = 0;
         while (t < 1)
         {
-            t += Time.deltaTime * zoomingSpeed;
+            t += Time.deltaTime * speed;  // Use custom speed
             mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, targetPosition, t);
             mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, targetSize, t);
             yield return null;
@@ -74,7 +75,7 @@ public class StartScreenManager : MonoBehaviour
     {
         if (!isZooming)
         {
-            StartCoroutine(ZoomIn(OptionsTarget, false));
+            StartCoroutine(ZoomIn(OptionsTarget, false, zoomingSpeed));
         }
     }
 
@@ -82,7 +83,7 @@ public class StartScreenManager : MonoBehaviour
     {
         if (!isZooming)
         {
-            StartCoroutine(ZoomIn(Target, true));
+            StartCoroutine(ZoomIn(Target, true, zoomingSpeed2)); // Use different speed for going back
         }
     }
 }
