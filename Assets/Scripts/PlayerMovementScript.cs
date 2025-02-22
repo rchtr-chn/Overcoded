@@ -51,8 +51,10 @@ public class PlayerMovementScript : MonoBehaviour
             }
             else
             {
-                col.offset = new Vector2(col.offset.x, 0);
-                col.size = new Vector2(col.size.x, 1);
+                Vector3 newScale = transform.localScale;
+                newScale.x = 1f;
+                newScale.y = 1f;
+                transform.localScale = newScale;
             }
         }
     }
@@ -79,8 +81,10 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void Duck()
     {
-        col.offset = new Vector2(col.offset.x, -0.3f);
-        col.size = new Vector2(col.size.x, 0.3f);
+        Vector3 newScale = transform.localScale;
+        newScale.x = 1.3f;
+        newScale.y = 0.4f;
+        transform.localScale = newScale;
     }
 
     private void DeletePrefabs()
