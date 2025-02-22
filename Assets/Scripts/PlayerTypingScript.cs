@@ -90,16 +90,16 @@ public class PlayerTypingScript : MonoBehaviour
 
             if (c == '\n' || c == '\r')
             {
-                InvisibleText();
 
                 if(!CodeValidity())
                 {
-                    obstacleSpawnerScript.prefabSpeed++;
+                    obstacleSpawnerScript.prefabSpeed += 1.5f;
                 }
 
 
                 currentInput = "";
                 inputText.text = "";
+                InvisibleText();
                 playerMovementScript.isBugged = false;
 
                 GetNewPrompt(wordBank[Random.Range(0, wordBank.Count())]);

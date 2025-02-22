@@ -2,10 +2,12 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Diagnostics;
 
 public class ChatBubbleScript : MonoBehaviour
 {
     public enum DragDirection { Left, Right, Up, Down }
+    public List<Sprite> sprites = new List<Sprite>();
     public DragDirection allowedDirection;
     public float fadeSpeed = 1f;
 
@@ -25,10 +27,28 @@ public class ChatBubbleScript : MonoBehaviour
 
     void Start()
     {
-        GetTargetPos();
+        allowedDirection = GetRandomEnumValue<DragDirection>();
 
-        if(spriteRenderer == null)
+        if (spriteRenderer == null)
             spriteRenderer = GetComponent<SpriteRenderer>();
+
+        switch (allowedDirection)
+        {
+            case DragDirection.Left:
+                spriteRenderer.sprite = sprites[2];
+                break;
+            case DragDirection.Right:
+                spriteRenderer.sprite = sprites[3];
+                break;
+            case DragDirection.Up:
+                spriteRenderer.sprite = sprites[0];
+                break;
+            case DragDirection.Down:
+                spriteRenderer.sprite = sprites[1];
+                break;
+        }
+
+        GetTargetPos();
 
         chatBubbleSpawnerScript = GameObject.Find("Cell-Phone").GetComponent<ChatBubbleSpawnerScript>();
 
@@ -57,6 +77,11 @@ public class ChatBubbleScript : MonoBehaviour
         }
     }
 
+    public static T GetRandomEnumValue<T>() where T : Enum
+    {
+        Array values = Enum.GetValues(typeof(T));
+        return (T)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+    }
     private void GetTargetPos()
     {
         targetPositions.Add(GameObject.Find("Chat-Pos-1").GetComponent<Transform>());

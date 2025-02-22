@@ -10,10 +10,12 @@ public class ChatBubbleSpawnerScript : MonoBehaviour
     public WaveScript waveScript;
     int mockWave = 0;
     public int availablePos = 4;
+    public SpriteRenderer screenSprite;
 
     public void Start()
     {
         waveScript = GameObject.Find("Player").GetComponent<WaveScript>();
+        screenSprite = GameObject.Find("Screen").GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -21,6 +23,7 @@ public class ChatBubbleSpawnerScript : MonoBehaviour
     {
         if (waveScript.currentWave < 7) return;
 
+        screenSprite.enabled = true;
         if (mockWave < waveScript.currentWave && waveScript.currentWave > 6)
         {
             if (waveScript.currentWave == 7)
@@ -66,7 +69,7 @@ public class ChatBubbleSpawnerScript : MonoBehaviour
         {
             if (availablePos > 0 && toSpawn.Contains(prefab))
             {
-                GameObject chatBubble = (GameObject)Instantiate(toSpawn[i]);
+                GameObject chatBubble = (GameObject)Instantiate(toSpawn[i],transform.position,Quaternion.identity);
                 toSpawn.RemoveAt(0);
             }
         }

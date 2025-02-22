@@ -77,8 +77,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 385442326, guid: 828c0562e17d7bb4fab1c15440887fc8, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 1427124507, guid: c5edebfe713f6124a8038fc3405ca4da, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -152,6 +152,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 0eb82369-eea2-4cd0-a6b8-8c5514f02da1
     m_ActionName: Gameplay/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 38000db2-306f-4f01-9347-4f8c0b9cce83
+    m_ActionName: Gameplay/Hold[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -216,7 +220,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.6666667}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.7
 --- !u!95 &1790827477016052662
