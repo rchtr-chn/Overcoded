@@ -136,10 +136,6 @@ public class DialogueManagerScript : MonoBehaviour
             choicesPanel.SetActive(false);
             StartCoroutine(TypeSentence(currentStory.Continue()));
         }
-        else if (currentStory.currentChoices.Count > 0)
-        {
-            DisplayChoices();
-        }
         else
         {
             ExitDialogue();
@@ -156,16 +152,7 @@ public class DialogueManagerScript : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
         isTyping = false;
-        
-        if (currentStory.currentChoices.Count > 0)
-        {
-            DisplayChoices();
-        }
-        else
-        {
-            yield return new WaitForSeconds(2.0f);
-            ExitDialogue();
-        }
+        DisplayChoices();
     }
 
     private void DisplayChoices()
