@@ -25,16 +25,30 @@ public class DialogueManagerScript : MonoBehaviour
     private bool isTyping = false;
 
     private int dialogueIndex = 0;
+    public int triggerTime = 0;
+    private int lastWave = -1;
+
+    public WaveScript waveScript;
 
     void Start() {
         isDialogueActive = false;
         dialoguePanel.SetActive(false);
 
         choicesText = new TextMeshProUGUI[choices.Length];
+
+        waveScript = GameObject.Find("Player").GetComponent<WaveScript>();
+        
         int index = 0;
         foreach(GameObject choice in choices)
         {
             choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
+            EventTrigger trigger = choice.GetComponent<EventTrigger>();
+            if (trigger == null)
+            {
+                trigger = choice.AddComponent<EventTrigger>();
+            }
+            AddEventTrigger(trigger, EventTriggerType.PointerEnter, () => OnMouseHoverChoice(choice));
+            AddEventTrigger(trigger, EventTriggerType.PointerClick, () => OnMouseClickChoice(index));
             index++;
         }
     }
@@ -43,35 +57,56 @@ public class DialogueManagerScript : MonoBehaviour
     {
         if (!isDialogueActive)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                EnterDialogue(dialogueIndex);
-                dialogueIndex = (dialogueIndex + 1) % inkJSONs.Length;
-            }
-            return;
-        }
+            if (waveScript.currentWave < 5) return;
 
-        if (choicesPanel.activeSelf)
-        {
-            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            if (waveScript.currentWave != lastWave)
             {
-                GameObject selectedChoice = EventSystem.current.currentSelectedGameObject;
-                for (int i = 0; i < choices.Length; i++)
+                lastWave = waveScript.currentWave;
+
+                switch (waveScript.currentWave)
                 {
-                    if (choices[i] == selectedChoice)
-                    {
-                        MakeChoice(i);
+                    case 5:
+                        triggerTime = UnityEngine.Random.Range(7, 10);
+                        StartCoroutine(waitForSeconds(triggerTime, 0));
                         break;
-                    }
+                    case 8:
+                        triggerTime = UnityEngine.Random.Range(10, 15);
+                        StartCoroutine(waitForSeconds(triggerTime, 1));
+                        break;
+                    case 9:
+                        triggerTime = UnityEngine.Random.Range(15, 20);
+                        StartCoroutine(waitForSeconds(triggerTime, 2));
+                        break;
+                    case 10:
+                        triggerTime = UnityEngine.Random.Range(20, 25);
+                        StartCoroutine(waitForSeconds(triggerTime, 3));
+                        break;
+                    case 11:
+                        triggerTime = UnityEngine.Random.Range(22, 27);
+                        StartCoroutine(waitForSeconds(triggerTime, 4));
+                        break;
+                    default:
+                        triggerTime = UnityEngine.Random.Range(25, 30);
+                        dialogueIndex = UnityEngine.Random.Range(0, 5);
+                        StartCoroutine(waitForSeconds(triggerTime, dialogueIndex));
+                        break;
                 }
             }
         }
-        else if (Input.GetMouseButtonDown(0) && !isTyping)
+
+        if (Input.GetMouseButtonDown(0))
         {
-            ContinueStory();
+            if(!isTyping && currentStory != null)
+                ContinueStory();
         }
     }
-    
+
+    private IEnumerator waitForSeconds(int triggerTime, int dialogueIndex)
+    {
+        yield return new WaitForSeconds(triggerTime);
+        EnterDialogue(dialogueIndex);
+    }
+
     public void EnterDialogue(int index)
     {
         currentStory = new Story(inkJSONs[index].text);
@@ -90,15 +125,16 @@ public class DialogueManagerScript : MonoBehaviour
 
     private void ContinueStory()
     {
-        if (currentStory.canContinue)
+        if (currentStory == null)
+        {
+            return;
+        }
+
+        if(currentStory.canContinue)
         {
             StopAllCoroutines();
             choicesPanel.SetActive(false);
             StartCoroutine(TypeSentence(currentStory.Continue()));
-        }
-        else if (currentStory.currentChoices.Count > 0)
-        {
-            DisplayChoices();
         }
         else
         {
@@ -116,16 +152,7 @@ public class DialogueManagerScript : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
         isTyping = false;
-        
-        if (currentStory.currentChoices.Count > 0)
-        {
-            DisplayChoices();
-        }
-        else
-        {
-            yield return new WaitForSeconds(2.0f);
-            ExitDialogue();
-        }
+        DisplayChoices();
     }
 
     private void DisplayChoices()
@@ -158,11 +185,23 @@ public class DialogueManagerScript : MonoBehaviour
 
     public void MakeChoice(int choiceIndex)
     {
-        if (choiceIndex >= 0 && choiceIndex < currentStory.currentChoices.Count)
-        {
-            currentStory.ChooseChoiceIndex(choiceIndex);
-            choicesPanel.SetActive(false);
-            ContinueStory();
-        }
+        currentStory.ChooseChoiceIndex(choiceIndex);
+    }
+
+    private void AddEventTrigger(EventTrigger trigger, EventTriggerType eventType, Action action)
+    {
+        EventTrigger.Entry entry = new EventTrigger.Entry { eventID = eventType };
+        entry.callback.AddListener((eventData) => action());
+        trigger.triggers.Add(entry);
+    }
+
+    private void OnMouseHoverChoice(GameObject choice)
+    {
+        EventSystem.current.SetSelectedGameObject(choice);
+    }
+
+    private void OnMouseClickChoice(int index)
+    {
+        MakeChoice(index);
     }
 }
