@@ -3109,6 +3109,7 @@ MonoBehaviour:
   backgroundNoise: {fileID: 8300000, guid: 31f38db12ab49c54fbb2a7445d352f68, type: 3}
   mainBgm: {fileID: 8300000, guid: 40270c1d4c4f5e345b099db48b256138, type: 3}
   mainBgmChaotic: {fileID: 8300000, guid: 5a96babd0ecda744c9645720a958c34a, type: 3}
+  death: {fileID: 8300000, guid: 81a918a0a3c021048b2d80ac1a9d9171, type: 3}
   gameOver: {fileID: 8300000, guid: 07db3bb26698eec428d8c0f7baf3ba23, type: 3}
   correct: {fileID: 8300000, guid: 2e47393a327391c479c99f8bb06c13a2, type: 3}
   incorrect: {fileID: 8300000, guid: 7f96266aa30625b49bd4e1fcab796b97, type: 3}

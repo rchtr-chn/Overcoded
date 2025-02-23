@@ -14,6 +14,7 @@ public class AudioManagerScript : MonoBehaviour
     public AudioClip backgroundNoise;
     public AudioClip mainBgm;
     public AudioClip mainBgmChaotic;
+    public AudioClip death;
     public AudioClip gameOver;
     public AudioClip correct;
     public AudioClip incorrect;
@@ -49,6 +50,7 @@ public class AudioManagerScript : MonoBehaviour
     {
         musicSource.clip = mainBgm;
         whiteNoise.clip = backgroundNoise;
+        musicSource.loop = true;
         musicSource.Play();
         whiteNoise.Play();
     }
