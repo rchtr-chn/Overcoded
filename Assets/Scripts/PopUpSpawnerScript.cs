@@ -29,13 +29,13 @@ public class PopUpSpawnerScript : MonoBehaviour
         switch(waveScript.currentWave)
         {
             case 4:
-                timerCap = 5f;
+                timerCap = 7f;
                 break;
             case 9:
-                timerCap = 6f;
+                timerCap = 8f;
                 break;
             case 10:
-                timerCap = 7f;
+                timerCap = 9f;
                 break;
         }
 
