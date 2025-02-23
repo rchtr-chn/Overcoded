@@ -36,7 +36,7 @@ public class PlayerMovementScript : MonoBehaviour
             {
                 afterBug = false;
                 rb.gravityScale = 1f;
-                transform.position = new Vector2(-5f, -0.9f);
+                transform.position = new Vector2(-7f, -0.49f);
                 DeletePrefabs();
             }
             rb.gravityScale = 1f;

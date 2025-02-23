@@ -6,8 +6,10 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class CoffeeScript : MonoBehaviour
 {
+    public WaveScript waveScript;
+
     [Header("Insanity Settings")]
-    [SerializeField] private float currentInsanity;
+    public float currentInsanity;
     public float decreaseRate = 1f;
     public float maxInsanity = 100f;
     public float lowInsanityThreshold = 50f; 
@@ -28,6 +30,8 @@ public class CoffeeScript : MonoBehaviour
 
     void Start()
     {
+        if(waveScript == null) waveScript = GameObject.Find("Player").GetComponent<WaveScript>();
+
         currentColorFilter = maxColorFilter;
         currentInsanity = maxInsanity;
         postProcessProfile.TryGetSettings(out depthOfField);
@@ -38,6 +42,34 @@ public class CoffeeScript : MonoBehaviour
 
     void Update()
     {
+        if(waveScript.currentWave < 5) return;
+
+        if(waveScript.currentWave == 6)
+        {
+            holdDuration = 3f;
+            maxInsanity = 60f;
+        }
+        else if(waveScript.currentWave == 8)
+        {
+            holdDuration = 5f;
+            maxInsanity = 58f;
+        }
+        else if(waveScript.currentWave == 9)
+        {
+            holdDuration = 5f;
+            maxInsanity = 56f;
+        }
+        else if(waveScript.currentWave == 10)
+        {
+            holdDuration = 5f;
+            maxInsanity = 54f;
+        }
+        else if(waveScript.currentWave > 10)
+        {
+            holdDuration = 5f;
+            maxInsanity = 52f;
+        }
+
         // Drinking System, Hold System
         if (isHolding && currentInsanity <= lowInsanityThreshold) 
         {
