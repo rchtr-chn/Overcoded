@@ -4,15 +4,31 @@ using UnityEngine.UI;
 
 public class AudioManagerScript : MonoBehaviour
 {
+
     [Header("--------------- Audio Source ---------------")]
-    [SerializeField] AudioSource musicSource;
+    public AudioSource musicSource;
     [SerializeField] AudioSource whiteNoise;
     [SerializeField] AudioSource SFXSource;
 
     [Header("--------------- Audio Clip ---------------")]
     public AudioClip backgroundNoise;
-    public AudioClip bgm;
-    public AudioClip death;
+    public AudioClip mainBgm;
+    public AudioClip mainBgmChaotic;
+    public AudioClip gameOver;
+    public AudioClip correct;
+    public AudioClip incorrect;
+    public AudioClip mumSfx;
+    public AudioClip typing;
+    public AudioClip flyHit;
+    public AudioClip flyBuzz;
+    public AudioClip popUpSfx;
+    public AudioClip jump;
+    public AudioClip drinkCoffee;
+    public AudioClip openDoor;
+    public AudioClip chatPopUp;
+    public AudioClip yell;
+
+
 
     [Header("--------------- Audio slider ---------------")]
     [SerializeField] public AudioMixer audioMixer;
@@ -31,7 +47,7 @@ public class AudioManagerScript : MonoBehaviour
     }
     void Start()
     {
-        musicSource.clip = bgm;
+        musicSource.clip = mainBgm;
         whiteNoise.clip = backgroundNoise;
         musicSource.Play();
         whiteNoise.Play();

@@ -11,6 +11,7 @@ public class PlayerMovementScript : MonoBehaviour
     private bool afterBug;
 
     public WaveScript waveScript;
+    public AudioManagerScript audioScript;
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class PlayerMovementScript : MonoBehaviour
         {
             waveScript = GetComponent<WaveScript>();
         }
+        if(audioScript == null) audioScript = GameObject.Find("Audio Manager").GetComponent<AudioManagerScript>();
     }
 
 
@@ -39,13 +41,16 @@ public class PlayerMovementScript : MonoBehaviour
                 transform.position = new Vector2(-7f, -0.49f);
                 DeletePrefabs();
             }
+
             rb.gravityScale = 1f;
-            if (Input.GetKey(KeyCode.UpArrow) && canJump)
+
+            if (Input.GetKey(KeyCode.W) && canJump)
             {
+                audioScript.PlaySfx(audioScript.jump);
                 Jump();
             }
 
-            if (Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKey(KeyCode.S))
             {
                 Duck();
             }
@@ -61,7 +66,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void BugEvent()
     {
-        if(waveScript.totalElapsedTime % 10f < 1f && waveScript.totalElapsedTime > 1f && !isBugged)
+        if(waveScript.totalElapsedTime % 15f < 1f && waveScript.totalElapsedTime > 1f && !isBugged)
         {
             //int rand = Random.Range(0, 5);
             //Debug.Log("HIT! RAND : " + rand);

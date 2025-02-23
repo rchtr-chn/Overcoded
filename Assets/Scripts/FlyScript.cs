@@ -3,9 +3,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class FlyScript : MonoBehaviour
 {
+    public FlySpawnerScript flySpawnerScript;
+    public WaveScript waveScript;
+
     [Header("Input Handler")]
     private Camera _mainCamera;
 
@@ -21,7 +25,7 @@ public class FlyScript : MonoBehaviour
     [Header("Fly Movement")]
     private Rigidbody2D rb; 
     private float angle = 0f;
-    public float speed = 10f;
+    public float speed;
     public float directionChangeInterval = 2f; 
     public float frequency = 1f;
     public float magnitude = 0.5f; 
@@ -42,11 +46,13 @@ public class FlyScript : MonoBehaviour
 
     void Start() 
     {
-        rb = GetComponent<Rigidbody2D>(); 
+        flySpawnerScript = GameObject.Find("Fly-Spawner").GetComponent<FlySpawnerScript>();
+        waveScript = GameObject.Find("Player").GetComponent<WaveScript>();
+        rb = GetComponent<Rigidbody2D>();
 
         GetBounds();
        
-        InvokeRepeating("ChangeDirection", 0, directionChangeInterval); 
+        InvokeRepeating("ChangeDirection", 0, directionChangeInterval);
     }
 
     void Update() 
@@ -93,14 +99,18 @@ public class FlyScript : MonoBehaviour
         objectWidth = transform.GetComponent<SpriteRenderer>().bounds.size.x / 2;
         objectHeight = transform.GetComponent<SpriteRenderer>().bounds.size.y / 2;
 
-        monitorBounds1 = GameObject.Find("Monitor1");
-        monitorBounds2 = GameObject.Find("Monitor2");
+        monitorBounds1 = GameObject.Find("Monitor1(Clone)");
+        monitorBounds2 = GameObject.Find("Monitor2(Clone)");
 
         center1 = monitorBounds1.transform.position;
-        center2 = monitorBounds2.transform.position;    
-
         radius1 = monitorBounds1.GetComponent<CircleCollider2D>().radius;
-        radius2 = monitorBounds2.GetComponent<CircleCollider2D>().radius;
+
+        if(waveScript.currentWave > 7)
+        {
+            center2 = monitorBounds2.transform.position;
+            radius2 = monitorBounds2.GetComponent<CircleCollider2D>().radius;
+        }
+        
     }
 
     private void ChangeDirection()
@@ -116,8 +126,16 @@ public class FlyScript : MonoBehaviour
         rb.velocity = (direction + avoidanceDirection) * speed;
 
         angle += speed * Time.deltaTime;
-        float x = Mathf.Cos(angle * frequency) * (circlingFirstRound ? radius1 : radius2);
-        float y = Mathf.Sin(angle * frequency) * (circlingFirstRound ? radius1 : radius2);
+        if(waveScript.currentWave < 8)
+        {
+            float x = Mathf.Cos(angle * frequency) * (radius1);
+            float y = Mathf.Sin(angle * frequency) * (radius1);
+        }
+        else
+        {
+            float x = Mathf.Cos(angle * frequency) * (circlingFirstRound ? radius1 : radius2);
+            float y = Mathf.Sin(angle * frequency) * (circlingFirstRound ? radius1 : radius2);
+        }
         
 
         if(circlingFirstRound)
@@ -183,7 +201,30 @@ public class FlyScript : MonoBehaviour
             Destroy(floatingText.gameObject, duration);
 
             if (chance < 0.3f)
+            {
+                flySpawnerScript.isActive = false;
                 Destroy(gameObject);
+            }
+        }
+    }
+
+    void AdjustSpeed()
+    {
+        if (waveScript.currentWave == 3)
+        {
+            speed = 2f;
+        }
+        else if (waveScript.currentWave == 8)
+        {
+            speed = 3f;
+        }
+        else if(waveScript.currentWave == 9)
+        {
+            speed = 4f;
+        }
+        else if(waveScript.currentWave > 9)
+        {
+            speed = 5f + 1 * waveScript.currentWave - 10;
         }
     }
 

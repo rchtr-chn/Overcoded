@@ -2001,7 +2001,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.505
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3107,8 +3107,21 @@ MonoBehaviour:
   whiteNoise: {fileID: 1519526436}
   SFXSource: {fileID: 1242253827}
   backgroundNoise: {fileID: 8300000, guid: 31f38db12ab49c54fbb2a7445d352f68, type: 3}
-  bgm: {fileID: 8300000, guid: 40270c1d4c4f5e345b099db48b256138, type: 3}
-  death: {fileID: 0}
+  mainBgm: {fileID: 8300000, guid: 40270c1d4c4f5e345b099db48b256138, type: 3}
+  mainBgmChaotic: {fileID: 8300000, guid: 5a96babd0ecda744c9645720a958c34a, type: 3}
+  gameOver: {fileID: 8300000, guid: 07db3bb26698eec428d8c0f7baf3ba23, type: 3}
+  correct: {fileID: 8300000, guid: 2e47393a327391c479c99f8bb06c13a2, type: 3}
+  incorrect: {fileID: 8300000, guid: 7f96266aa30625b49bd4e1fcab796b97, type: 3}
+  mumSfx: {fileID: 8300000, guid: 16cd979620dfe4441a47f816815351f3, type: 3}
+  typing: {fileID: 8300000, guid: 4b8f4171e4564b14cba0f27c97d9344c, type: 3}
+  flyHit: {fileID: 8300000, guid: 26c1044b10bb4364380b13f525f1c702, type: 3}
+  flyBuzz: {fileID: 8300000, guid: 1ca8d2b2c89b155478121e624cbe7dee, type: 3}
+  popUpSfx: {fileID: 8300000, guid: 88236845be2d50249998c33ffbf71ee8, type: 3}
+  jump: {fileID: 8300000, guid: dc5c490edf96ad14fa8a56c4a1f28cac, type: 3}
+  drinkCoffee: {fileID: 8300000, guid: 2ed3e1ae6e538d741a484c89ea607489, type: 3}
+  openDoor: {fileID: 8300000, guid: 2e4d88dcd36f6fb44974703b8d7532cd, type: 3}
+  chatPopUp: {fileID: 8300000, guid: bb794898b96747940b2fdf29c011168f, type: 3}
+  yell: {fileID: 8300000, guid: 3e66331b0c9bba34b872d397693186bf, type: 3}
   audioMixer: {fileID: 24100000, guid: 938059dc21008ac40a6934f1de345805, type: 2}
 --- !u!4 &1933865699
 Transform:

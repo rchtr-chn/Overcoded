@@ -4,14 +4,27 @@ using UnityEngine;
 
 public class WaveScript : MonoBehaviour
 {
+    public AudioManagerScript audioScript;
     public float totalElapsedTime = 0f;
     public int currentWave;
+    public bool isWave = false;
 
+    private void Start()
+    {
+        if (audioScript == null) audioScript = GameObject.Find("Audio Manager").GetComponent<AudioManagerScript>();
+    }
     void Update()
     {
+        if(currentWave == 10 && !isWave)
+        {
+            audioScript.musicSource.Stop();
+            audioScript.musicSource.clip = audioScript.mainBgmChaotic;
+            audioScript.musicSource.Play();
+            isWave = true;
+        }
         totalElapsedTime += Time.deltaTime;
         currentWave = GetCurrentWave(totalElapsedTime);
-        //currentWave = 9;
+        //currentWave = 10;
         Debug.Log($"Current Wave: {currentWave} | Elapsed Time: {totalElapsedTime:F2} sec");
     }
 

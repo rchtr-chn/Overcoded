@@ -49,7 +49,7 @@ public class PopUpSpawnerScript : MonoBehaviour
 
         if (mockwave < waveScript.currentWave && waveScript.currentWave > 3)
         {
-            if(waveScript.currentWave == 4)
+            if(waveScript.currentWave > 3 && waveScript.currentWave < 8)
             {
                 mockwave = waveScript.currentWave;
                 for(int i = 0; i < 2;i++)
@@ -57,7 +57,7 @@ public class PopUpSpawnerScript : MonoBehaviour
                     spawnList.Add(prefab);
                 }
             }
-            else if(waveScript.currentWave == 8)
+            else if(waveScript.currentWave > 7 && waveScript.currentWave < 9)
             {
                 mockwave = waveScript.currentWave;
                 for (int i = 0; i < 3; i++)

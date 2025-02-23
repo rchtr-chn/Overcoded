@@ -1283,7 +1283,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 2ff2270c2d907454bb735f60ca9a751f, type: 3}
     m_FontSize: 48
     m_FontStyle: 0
     m_BestFit: 0
@@ -1426,6 +1426,9 @@ MonoBehaviour:
   inputText: {fileID: 1452423441}
   playerMovementScript: {fileID: 1472191073}
   obstacleSpawnerScript: {fileID: 0}
+  audioScript: {fileID: 0}
+  timer: 0
+  timerCap: 0
 --- !u!4 &1472191069
 Transform:
   m_ObjectHideFlags: 0
@@ -1435,7 +1438,7 @@ Transform:
   m_GameObject: {fileID: 1472191067}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7, y: -0.49, z: -0.66466576}
+  m_LocalPosition: {x: -7, y: -0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1582,6 +1585,7 @@ MonoBehaviour:
   jumpForce: 6
   isBugged: 0
   waveScript: {fileID: 0}
+  audioScript: {fileID: 0}
 --- !u!114 &1472191074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1594,8 +1598,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c452604e119efa4bb9df3baed2ba97a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioScript: {fileID: 0}
   totalElapsedTime: 0
   currentWave: 0
+  isWave: 0
 --- !u!1001 &1487256256
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1728,6 +1734,55 @@ PrefabInstance:
       addedObject: {fileID: 1089594849}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cdb9b958ed7ba24ab57951573e786c7, type: 3}
+--- !u!1 &1505853591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1505853593}
+  - component: {fileID: 1505853592}
+  m_Layer: 0
+  m_Name: Fly-Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1505853592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505853591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bcf3bf52a99a8b4aab3f29d3b737592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flyPrefab: {fileID: 4944032830205437505, guid: 3c6e6c4cf802c854d9aeaaec5c94741b, type: 3}
+  pointOnePrefab: {fileID: 4924013236629180321, guid: 1d0ef60dcfb39da4eb775903f6334a22, type: 3}
+  pointTwoPrefab: {fileID: 8470372494611756099, guid: eb613e647913a5241a39a5dd0ca4ec79, type: 3}
+  waveScript: {fileID: 0}
+  isActive: 1
+--- !u!4 &1505853593
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505853591}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10, y: 5, z: 0.24831994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1596025578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1870,7 +1925,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 2ff2270c2d907454bb735f60ca9a751f, type: 3}
     m_FontSize: 48
     m_FontStyle: 0
     m_BestFit: 0
@@ -1908,3 +1963,4 @@ SceneRoots:
   - {fileID: 1137861614}
   - {fileID: 543753272}
   - {fileID: 412698951}
+  - {fileID: 1505853593}

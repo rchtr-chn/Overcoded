@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 522852418399056108}
   - component: {fileID: 3565705344356892161}
   - component: {fileID: 7173157788657338317}
-  - component: {fileID: 1790827477016052662}
   m_Layer: 0
   m_Name: Fly
   m_TagString: Untagged
@@ -77,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 1427124507, guid: c5edebfe713f6124a8038fc3405ca4da, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -101,9 +100,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8daa73d5530a39a44a40b784ef3036e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flySpawnerScript: {fileID: 0}
+  waveScript: {fileID: 0}
   monitorBounds1: {fileID: 0}
   monitorBounds2: {fileID: 0}
-  speed: 10
+  speed: 2
   directionChangeInterval: 2
   frequency: 1
   magnitude: 0.5
@@ -223,24 +224,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.7
---- !u!95 &1790827477016052662
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4944032830205437505}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 16d0d01733d820645b73cccc4b1abb8d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0

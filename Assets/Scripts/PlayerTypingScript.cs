@@ -1,11 +1,12 @@
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerTypingScript : MonoBehaviour
 {
     //WORDBANK NEEDED~!!!!
-    private string[] wordBank =
+    private readonly string[] wordBank =
     {
         "set player.speed = 5;", "set gravity = on;", "enable hitbox;",
         "disable collision;", "set obstacle.count = 10;", "reset timer;",
@@ -56,13 +57,16 @@ public class PlayerTypingScript : MonoBehaviour
     public Text inputText;
     public PlayerMovementScript playerMovementScript;
     public ObstacleSpawnerScript obstacleSpawnerScript;
+    public AudioManagerScript audioScript;
+    public float timer, timerCap;
 
     private string currentPrompt = string.Empty;
     private string currentInput = string.Empty;
     void Start()
     {
-
+        timerCap = 10f;
         //initialize coding minigame, CHANGE WHEN WORDBANK IS ADDED
+        if (audioScript == null) audioScript = GameObject.Find("Audio Manager").GetComponent<AudioManagerScript>();
         obstacleSpawnerScript = GameObject.Find("Obstacle-Spawner").GetComponent<ObstacleSpawnerScript>();
         GetNewPrompt(wordBank[Random.Range(0, wordBank.Count())]);
         InvisibleText();
@@ -72,6 +76,21 @@ public class PlayerTypingScript : MonoBehaviour
     {
         if(playerMovementScript.isBugged)
         {
+            timer += Time.deltaTime;
+            if(timer > timerCap)
+            {
+                timer = 0;
+                audioScript.PlaySfx(audioScript.incorrect);
+                obstacleSpawnerScript.prefabSpeed += 1.5f;
+
+                currentInput = "";
+                inputText.text = "";
+                InvisibleText();
+                playerMovementScript.isBugged = false;
+
+                GetNewPrompt(wordBank[Random.Range(0, wordBank.Count())]);
+                return;
+            }
             VisibleText();
             TypeInput();
         }
@@ -87,14 +106,18 @@ public class PlayerTypingScript : MonoBehaviour
     {
         foreach (char c in Input.inputString)
         {
+            audioScript.PlaySfx(audioScript.typing);
 
             if (c == '\n' || c == '\r')
             {
-
+                timer = 0f;
                 if(!CodeValidity())
                 {
-                    obstacleSpawnerScript.prefabSpeed += 1.5f;
+                    audioScript.PlaySfx(audioScript.incorrect);
+                    obstacleSpawnerScript.prefabSpeed += 1f;
                 }
+                else
+                    audioScript.PlaySfx(audioScript.correct);
 
 
                 currentInput = "";
