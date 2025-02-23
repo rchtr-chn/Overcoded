@@ -1,5 +1,6 @@
 using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovementScript : MonoBehaviour
 {
@@ -111,7 +112,10 @@ public class PlayerMovementScript : MonoBehaviour
         }
         if(collision.gameObject.CompareTag("Obstacle"))
         {
+            audioScript.musicSource.Stop();
+            audioScript.PlaySfx(audioScript.death);
             Debug.Log("GAME OVER!!!");
+            SceneManager.LoadScene(2);
         }
     }
 }
