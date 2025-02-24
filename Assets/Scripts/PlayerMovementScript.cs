@@ -7,6 +7,7 @@ public class PlayerMovementScript : MonoBehaviour
     public Rigidbody2D rb;
     public BoxCollider2D col;
     private bool canJump = false;
+    public bool isAlive = true;
     public float jumpForce;
     public bool isBugged;
     private bool afterBug;
@@ -112,6 +113,7 @@ public class PlayerMovementScript : MonoBehaviour
         }
         if(collision.gameObject.CompareTag("Obstacle"))
         {
+            isAlive = false;
             audioScript.musicSource.Stop();
             audioScript.PlaySfx(audioScript.death);
             Debug.Log("GAME OVER!!!");
