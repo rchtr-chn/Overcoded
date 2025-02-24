@@ -175,6 +175,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiImage: {fileID: 0}
   fadeDuration: 2
+  fadeDuration2: 6
+  audioScript: {fileID: 0}
 --- !u!114 &170539857
 MonoBehaviour:
   m_ObjectHideFlags: 0
