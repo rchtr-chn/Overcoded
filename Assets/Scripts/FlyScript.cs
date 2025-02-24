@@ -191,20 +191,16 @@ public class FlyScript : MonoBehaviour
         if (rayHit.collider.gameObject == gameObject)
         {
             Debug.Log("Hit!");
-            float chance = UnityEngine.Random.Range(0f, 1f);
             Vector2 canvasPosition = WorldToCanvasPosition(gameObject.transform.position);
 
             TextMeshProUGUI floatingText = Instantiate(floatingTextPrefab, canvas.transform);
-            floatingText.text = chance < 0.3f ? "Killed!" : "Missed!";
+            floatingText.text = "Killed!";
             floatingText.GetComponent<RectTransform>().anchoredPosition = canvasPosition;
 
             Destroy(floatingText.gameObject, duration);
 
-            if (chance < 0.3f)
-            {
-                flySpawnerScript.isActive = false;
-                Destroy(gameObject);
-            }
+            flySpawnerScript.isActive = false;
+            Destroy(gameObject);
         }
     }
 

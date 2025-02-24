@@ -15,7 +15,7 @@ public class WaveScript : MonoBehaviour
     }
     void Update()
     {
-        if(currentWave == 10 && !isWave)
+        if(currentWave == 7 && !isWave)
         {
             audioScript.musicSource.Stop();
             audioScript.musicSource.clip = audioScript.mainBgmChaotic;
