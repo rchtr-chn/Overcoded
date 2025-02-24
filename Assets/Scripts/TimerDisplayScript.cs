@@ -9,7 +9,8 @@ public class TimerDisplayScript : MonoBehaviour
     public static TimerDisplayScript instance = null;
     public WaveScript waveScript;
     public PlayerMovementScript playerMovementScript;
-    private float timer = 0, counter;
+    public HighScoreScript highScoreScript;
+    public float timer = 0, counter;
     float seconds, minutes, hours;
     public Text textUI;
     // Start is called before the first frame update
@@ -17,8 +18,9 @@ public class TimerDisplayScript : MonoBehaviour
     {
         if (waveScript == null)
             waveScript = GameObject.Find("Player").GetComponent<WaveScript>();
-        if(playerMovementScript == null)
+        if (playerMovementScript == null)
             playerMovementScript = GameObject.Find("Player").GetComponent<PlayerMovementScript>();
+
         textUI = GameObject.Find("Timer Text").GetComponent<Text>();
     }
 
@@ -50,6 +52,12 @@ public class TimerDisplayScript : MonoBehaviour
         }
         else
         {
+            if (highScoreScript == null)
+                highScoreScript = GameObject.Find("PlayerPrefs").GetComponent<HighScoreScript>();
+
+            highScoreScript.SaveHighScore(Mathf.FloorToInt(waveScript.totalElapsedTime));
+            highScoreScript.LoadHighScore();
+
             counter += Time.deltaTime;
 
             if (counter > 1)
