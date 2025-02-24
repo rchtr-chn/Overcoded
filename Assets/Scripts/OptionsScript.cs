@@ -1,16 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class OptionsScript : MonoBehaviour
 {
-    [SerializeField] private AudioMixer audioMixer;
-    [SerializeField] private Slider musicSlider;
-
-    public void setmusicVolume(float volume)
+    public TMPro.TMP_Dropdown resDropdown;
+    Resolution[] resolutions;
+    private void Start()
     {
-        audioMixer.SetFloat("volume", Mathf.Log10(volume)*10);
+        resolutions = Screen.resolutions;
+
+        resDropdown.ClearOptions();
+
+        List<string> options = new List<string>();
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + "x" + resolutions[i].height;
+            options.Add(option);
+        }
+        resDropdown.AddOptions(options);
+    }
+
+    public void setFullscreen(bool isFullscreen)
+    {
+        Screen.fullScreen = isFullscreen;
     }
 }

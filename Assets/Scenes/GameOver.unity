@@ -248,8 +248,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 666, y: -146.33667}
-  m_SizeDelta: {x: 312.1036, y: 34.6734}
+  m_AnchoredPosition: {x: 634.45624, y: -140.02792}
+  m_SizeDelta: {x: 379.7792, y: 47.2909}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &383887342
 MonoBehaviour:
@@ -263,7 +263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38e3afb83270c1245833885c637f3be3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerScript: {fileID: 0}
   highScoreText: {fileID: 383887343}
 --- !u!114 &383887343
 MonoBehaviour:
@@ -286,7 +285,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 7ab6d8ef13c79df47a1fafffe17ba684, type: 3}
     m_FontSize: 28
     m_FontStyle: 0
     m_BestFit: 0

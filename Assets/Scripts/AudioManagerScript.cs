@@ -54,16 +54,17 @@ public class AudioManagerScript : MonoBehaviour
         musicSource.Play();
         whiteNoise.Play();
     }
-
-
-
-    public void setmusic(float volume)
-    {
-        audioMixer.SetFloat("BGM", volume);
-    }
-
     public void PlaySfx(AudioClip clip)
     {
         SFXSource.PlayOneShot(clip);
     }
+    public void setBGM(float volume)
+    {
+        audioMixer.SetFloat("BGM", Mathf.Log10(volume) * 20);
+    }
+    public void setSFX(float volume)
+    {
+        audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
+    }
+
 }
