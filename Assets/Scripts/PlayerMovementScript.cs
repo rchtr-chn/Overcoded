@@ -45,13 +45,13 @@ public class PlayerMovementScript : MonoBehaviour
 
             rb.gravityScale = 1f;
 
-            if (Input.GetKey(KeyCode.W) && canJump)
+            if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && canJump)
             {
                 audioScript.PlaySfx(audioScript.jump);
                 Jump();
             }
 
-            if (Input.GetKey(KeyCode.S))
+            if ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)))
             {
                 Duck();
             }
