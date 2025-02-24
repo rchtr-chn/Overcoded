@@ -49,7 +49,7 @@ public class StartScreenManager : MonoBehaviour
         float t = 0;
         while (t < 1)
         {
-            t += Time.deltaTime * speed;  // Use custom speed
+            t += Time.deltaTime * speed;
             mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, targetPosition, t);
             mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, targetSize, t);
             yield return null;
@@ -83,7 +83,7 @@ public class StartScreenManager : MonoBehaviour
     {
         if (!isZooming)
         {
-            StartCoroutine(ZoomIn(Target, true, zoomingSpeed2)); // Use different speed for going back
+            StartCoroutine(ZoomIn(Target, true, zoomingSpeed2));
         }
     }
 }
