@@ -25,7 +25,7 @@ public class WaveScript : MonoBehaviour
         totalElapsedTime += Time.deltaTime;
         currentWave = GetCurrentWave(totalElapsedTime);
         // currentWave = 5;
-        Debug.Log($"Current Wave: {currentWave} | Elapsed Time: {totalElapsedTime:F2} sec");
+        //Debug.Log($"Current Wave: {currentWave} | Elapsed Time: {totalElapsedTime:F2} sec");
     }
 
     int GetCurrentWave(float elapsedTime)

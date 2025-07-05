@@ -35,10 +35,10 @@ public class ObstacleSpawnerScript : MonoBehaviour
         if (timer >= timerCap)
         {
             timer = 0;
-            if (choice == 1)
-                Instantiate(prefab[choice], spawnPosInv, Quaternion.Euler(180, 0, 0));
-            else
-                Instantiate(prefab[choice], spawnPos, Quaternion.identity);
+            //if (choice == 1)
+                //Instantiate(prefab[choice], spawnPosInv, Quaternion.Euler(180, 0, 0));
+            //else
+                //Instantiate(prefab[choice], spawnPos, Quaternion.identity);
         }
     }
 }

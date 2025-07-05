@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -59,12 +60,14 @@ public class PlayerTypingScript : MonoBehaviour
     public ObstacleSpawnerScript obstacleSpawnerScript;
     public AudioManagerScript audioScript;
     public float timer, timerCap;
+    private bool bugAfflicted = false;
+    private int bugIndex = -1;
 
     private string currentPrompt = string.Empty;
     private string currentInput = string.Empty;
     void Start()
     {
-        timerCap = 10f;
+        //timerCap = 10f;
         //initialize coding minigame, CHANGE WHEN WORDBANK IS ADDED
         if (audioScript == null) audioScript = GameObject.Find("Audio Manager").GetComponent<AudioManagerScript>();
         obstacleSpawnerScript = GameObject.Find("Obstacle-Spawner").GetComponent<ObstacleSpawnerScript>();
@@ -76,23 +79,80 @@ public class PlayerTypingScript : MonoBehaviour
     {
         if(playerMovementScript.isBugged)
         {
-            timer += Time.deltaTime;
-            if(timer > timerCap)
+            //timer += Time.deltaTime;
+            //if(timer > timerCap)
+            //{
+            //    timer = 0;
+            //    audioScript.PlaySfx(audioScript.incorrect);
+            //    obstacleSpawnerScript.prefabSpeed += 1.5f;
+
+            //    currentInput = "";
+            //    inputText.text = "";
+            //    InvisibleText();
+            //    playerMovementScript.isBugged = false;
+
+            //    GetNewPrompt(wordBank[Random.Range(0, wordBank.Count())]);
+            //    return;
+            //}
+            if(!bugAfflicted)
             {
-                timer = 0;
-                audioScript.PlaySfx(audioScript.incorrect);
-                obstacleSpawnerScript.prefabSpeed += 1.5f;
-
-                currentInput = "";
-                inputText.text = "";
-                InvisibleText();
-                playerMovementScript.isBugged = false;
-
-                GetNewPrompt(wordBank[Random.Range(0, wordBank.Count())]);
-                return;
+                AfflictDebuffs();
+                bugAfflicted = true;
             }
+
             VisibleText();
             TypeInput();
+        }
+    }
+
+    private void AfflictDebuffs()
+    {
+        bugIndex = Random.Range(0, 2);
+
+        switch (bugIndex)
+        {
+            case 0:
+                Debug.Log("Afflicting debuff: Increase obstacle speed");
+                // Example debuff: Increase obstacle speed
+                obstacleSpawnerScript.prefabSpeed += 2f;
+                break;
+            case 1:
+                Debug.Log("Afflicting debuff: Invert player controls");
+                // Example debuff: invert player controls
+                (playerMovementScript.jumpKey, playerMovementScript.duckKey) =
+                    (playerMovementScript.duckKey, playerMovementScript.jumpKey);
+                break;
+            case 2:
+                Debug.Log("Afflicting debuff: Decrease gravity");
+                // Example debuff: Decrease gravity
+                playerMovementScript.rb.gravityScale -= 1f;
+                break;
+            default:
+                // Default case if needed
+                break;
+        }
+    }
+
+    private void RevertDebuffs(int index)
+    {
+        switch(index)
+        {
+            case 0:
+                // Revert obstacle speed increase
+                obstacleSpawnerScript.prefabSpeed -= 2f;
+                break;
+            case 1:
+                // Revert player controls
+                (playerMovementScript.jumpKey, playerMovementScript.duckKey) =
+                    (playerMovementScript.duckKey, playerMovementScript.jumpKey);
+                break;
+            case 2:
+                // Revert gravity change
+                playerMovementScript.rb.gravityScale += 1f;
+                break;
+            default:
+                // Default case if needed
+                break;
         }
     }
 
@@ -114,10 +174,21 @@ public class PlayerTypingScript : MonoBehaviour
                 if(!CodeValidity())
                 {
                     audioScript.PlaySfx(audioScript.incorrect);
-                    obstacleSpawnerScript.prefabSpeed += 1f;
+                    Debug.Log("bugIndex =" + bugIndex);
                 }
                 else
+                {
+                    Debug.Log("bugIndex =" + bugIndex);
+                    if (bugAfflicted || bugIndex != -1)
+                    {
+                        Debug.Log("bug removed!");
+                        RevertDebuffs(bugIndex);
+                        bugAfflicted = false;
+                    }
+
+                    bugIndex = -1;
                     audioScript.PlaySfx(audioScript.correct);
+                }
 
 
                 currentInput = "";

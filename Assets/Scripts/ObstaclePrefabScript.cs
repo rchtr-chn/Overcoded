@@ -23,13 +23,13 @@ public class ObstaclePrefabScript : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if(playerMovementScript.isBugged)
-        {
-            rb.velocity = Vector3.zero;
-        }
-        else
-        {
+        //if(playerMovementScript.isBugged)
+        //{
+        //    rb.velocity = Vector3.zero;
+        //}
+        //else
+        //{
             rb.velocity = new Vector2(-obstacleSpawnerScript.prefabSpeed, rb.velocity.y);
-        }
+        //}
     }
 }

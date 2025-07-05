@@ -34,7 +34,7 @@ public class StartScreenManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isZooming)
         {
-            Debug.Log("Space Pressed");
+            //Debug.Log("Space Pressed");
             StartCoroutine(ZoomIn(Target, true, zoomingSpeed));
         }
     }

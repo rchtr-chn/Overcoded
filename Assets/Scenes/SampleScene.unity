@@ -987,7 +987,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &906213716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1966,6 +1966,8 @@ MonoBehaviour:
   isAlive: 1
   jumpForce: 13.5
   isBugged: 0
+  jumpKey: 273
+  duckKey: 274
   waveScript: {fileID: 0}
   audioScript: {fileID: 0}
 --- !u!114 &1472191074

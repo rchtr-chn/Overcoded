@@ -13,6 +13,9 @@ public class PlayerMovementScript : MonoBehaviour
     public bool isBugged;
     private bool afterBug;
 
+    public KeyCode jumpKey = KeyCode.UpArrow;
+    public KeyCode duckKey = KeyCode.DownArrow;
+
     public WaveScript waveScript;
     public AudioManagerScript audioScript;
 
@@ -30,31 +33,31 @@ public class PlayerMovementScript : MonoBehaviour
     {
         BugEvent();
 
-        if (isBugged)
-        {
-            rb.velocity = Vector3.zero;
-            rb.gravityScale = 0f;
-            afterBug = true;
-        }
-        else
-        {
-            if(afterBug)
-            {
-                afterBug = false;
-                rb.gravityScale = 5f;
-                transform.position = new Vector2(-7f, -0.49f);
-                DeletePrefabs();
-            }
+        //if (isBugged)
+        //{
+        //    rb.velocity = Vector3.zero;
+        //    rb.gravityScale = 0f;
+        //    afterBug = true;
+        //}
+        //else
+        //{
+        //    if(afterBug)
+        //    {
+        //        afterBug = false;
+        //        rb.gravityScale = 5f;
+        //        transform.position = new Vector2(-7f, -0.49f);
+        //        DeletePrefabs();
+        //    }
 
             rb.gravityScale = 5f;
 
-            if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && canJump)
+            if (Input.GetKeyDown(jumpKey) && canJump)
             {
                 Jump();
                 audioScript.PlaySfx(audioScript.jump);
             }
 
-            if ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && !offGround)
+            if (Input.GetKey(duckKey) && !offGround)
             {
                 Duck();
             }
@@ -65,7 +68,7 @@ public class PlayerMovementScript : MonoBehaviour
                 newScale.y = 1f;
                 transform.localScale = newScale;
             }
-        }
+        //}
     }
 
     private void BugEvent()
@@ -83,7 +86,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void Jump()
     {
-        Debug.Log("key was pressed");
+        //Debug.Log("key was pressed");
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         canJump = false;
         offGround = true;
@@ -112,7 +115,7 @@ public class PlayerMovementScript : MonoBehaviour
     {
         if(collision.gameObject.name == "Road")
         {
-            Debug.Log("Can jump loh");
+            //Debug.Log("Can jump loh");
             offGround = false;
             canJump = true;
         }
