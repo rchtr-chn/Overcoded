@@ -47,10 +47,15 @@ public class DialogueManagerScript : MonoBehaviour
             {
                 trigger = choice.AddComponent<EventTrigger>();
             }
-            AddEventTrigger(trigger, EventTriggerType.PointerEnter, () => OnMouseHoverChoice(choice));
-            AddEventTrigger(trigger, EventTriggerType.PointerClick, () => OnMouseClickChoice(index));
+            if(choicesPanel)
+            {
+                AddEventTrigger(trigger, EventTriggerType.PointerEnter, () => OnMouseHoverChoice(choice));
+                AddEventTrigger(trigger, EventTriggerType.PointerClick, () => OnMouseClickChoice(index));
+            }
             index++;
         }
+
+        //EnterDialogue(1);
     }
 
     void Update()

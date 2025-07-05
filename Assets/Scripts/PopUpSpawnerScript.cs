@@ -52,7 +52,7 @@ public class PopUpSpawnerScript : MonoBehaviour
             if(waveScript.currentWave > 3 && waveScript.currentWave < 8)
             {
                 mockwave = waveScript.currentWave;
-                for(int i = 0; i < 2;i++)
+                for(int i = 0; i < 1;i++)
                 {
                     spawnList.Add(prefab);
                 }
@@ -60,7 +60,7 @@ public class PopUpSpawnerScript : MonoBehaviour
             else if(waveScript.currentWave > 7 && waveScript.currentWave < 9)
             {
                 mockwave = waveScript.currentWave;
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     spawnList.Add(prefab);
                 }
@@ -68,7 +68,7 @@ public class PopUpSpawnerScript : MonoBehaviour
             else if (waveScript.currentWave == 9)
             {
                 mockwave = waveScript.currentWave;
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     spawnList.Add(prefab);
                 }
@@ -76,7 +76,7 @@ public class PopUpSpawnerScript : MonoBehaviour
             else if (waveScript.currentWave == 10)
             {
                 mockwave = waveScript.currentWave;
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     spawnList.Add(prefab);
                 }
@@ -85,7 +85,7 @@ public class PopUpSpawnerScript : MonoBehaviour
             {
                 int j = 0;
                 mockwave = waveScript.currentWave;
-                for (int i = 0; i < 5 + 1 * waveScript.currentWave - 10; i++)
+                for (int i = 0; i < 3 + 1 * waveScript.currentWave - 10; i++)
                 {
                     spawnList.Add(prefab);
                     j++;

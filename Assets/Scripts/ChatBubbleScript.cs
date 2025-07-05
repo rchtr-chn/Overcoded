@@ -58,20 +58,20 @@ public class ChatBubbleScript : MonoBehaviour
         if (availablePosition != Vector3.zero)
         {
             isFree = false;
-            chatBubbleSpawnerScript.availablePos--;
+            //chatBubbleSpawnerScript.availablePos--;
             MoveToTarget(availablePosition);
         }
     }
 
     private void Update()
     {
-        if(isFree)
+        if (isFree)
         {
             Vector3 availablePosition = FindAvailablePosition();
             if (availablePosition != Vector3.zero)
             {
                 isFree = false;
-                chatBubbleSpawnerScript.availablePos--;
+                //chatBubbleSpawnerScript.availablePos--;
                 MoveToTarget(availablePosition);
             }
         }

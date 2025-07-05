@@ -63,12 +63,24 @@ public class ChatBubbleSpawnerScript : MonoBehaviour
         SpawnEnt();
     }
 
+    //void TestFunctionality()
+    //{
+    //    screenSprite.enabled = true;
+    //    for (int i=0;i<5;i++)
+    //    {
+    //        toSpawn.Add(prefab);
+    //    }
+    //}
+
     void SpawnEnt()
     {
+        if (availablePos == 0) return;
+
         for(int i = 0 ; i < toSpawn.Count ; i++)
         {
-            if (availablePos > 0 && toSpawn.Contains(prefab))
+            if (toSpawn.Contains(prefab) && availablePos > 0)
             {
+                availablePos--;
                 GameObject chatBubble = (GameObject)Instantiate(toSpawn[i],transform.position,Quaternion.identity);
                 toSpawn.RemoveAt(0);
             }

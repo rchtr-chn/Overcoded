@@ -20,12 +20,11 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMipmapLimit: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -64,7 +63,6 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
@@ -77,7 +75,6 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -90,7 +87,6 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -103,7 +99,6 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -134,10 +129,10 @@ TextureImporter:
       name: Gamejam 02-2025 - Copy - Copy 2_1
       rect:
         serializedVersion: 2
-        x: 498
-        y: 731
-        width: 280
-        height: 211
+        x: 507
+        y: 744
+        width: 259
+        height: 187
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,10 +150,10 @@ TextureImporter:
       name: Gamejam 02-2025 - Copy - Copy 2_2
       rect:
         serializedVersion: 2
-        x: 910
-        y: 852
-        width: 167
-        height: 134
+        x: 919
+        y: 861
+        width: 149
+        height: 116
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,10 +171,10 @@ TextureImporter:
       name: Gamejam 02-2025 - Copy - Copy 2_3
       rect:
         serializedVersion: 2
-        x: 1160
-        y: 852
-        width: 167
-        height: 134
+        x: 1169
+        y: 861
+        width: 149
+        height: 115
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +192,10 @@ TextureImporter:
       name: Gamejam 02-2025 - Copy - Copy 2_4
       rect:
         serializedVersion: 2
-        x: 1409
-        y: 852
-        width: 167
-        height: 134
+        x: 1418
+        y: 861
+        width: 149
+        height: 116
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,10 +213,10 @@ TextureImporter:
       name: Gamejam 02-2025 - Copy - Copy 2_5
       rect:
         serializedVersion: 2
-        x: 1659
-        y: 852
-        width: 167
-        height: 134
+        x: 1668
+        y: 861
+        width: 149
+        height: 116
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,10 +234,10 @@ TextureImporter:
       name: Gamejam 02-2025 - Copy - Copy 2_6
       rect:
         serializedVersion: 2
-        x: 1160
-        y: 650
-        width: 167
-        height: 134
+        x: 1169
+        y: 659
+        width: 149
+        height: 116
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,10 +255,10 @@ TextureImporter:
       name: Gamejam 02-2025 - Copy - Copy 2_7
       rect:
         serializedVersion: 2
-        x: 1410
-        y: 650
-        width: 167
-        height: 134
+        x: 1419
+        y: 659
+        width: 149
+        height: 116
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,10 +276,10 @@ TextureImporter:
       name: Gamejam 02-2025 - Copy - Copy 2_8
       rect:
         serializedVersion: 2
-        x: 1659
-        y: 650
-        width: 167
-        height: 134
+        x: 1668
+        y: 659
+        width: 149
+        height: 116
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -406,8 +401,9 @@ TextureImporter:
       Gamejam 02-2025 - Copy - Copy 2_7: -1720814379
       Gamejam 02-2025 - Copy - Copy 2_8: -366485282
       Gamejam 02-2025 - Copy - Copy 2_9: 173513695
-  mipmapLimitGroupName: 
+  spritePackingTag: 
   pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

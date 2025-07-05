@@ -6,7 +6,8 @@ public class PlayerMovementScript : MonoBehaviour
 {
     public Rigidbody2D rb;
     public BoxCollider2D col;
-    private bool canJump = false;
+    private bool canJump = true;
+    private bool offGround = false;
     public bool isAlive = true;
     public float jumpForce;
     public bool isBugged;
@@ -28,6 +29,7 @@ public class PlayerMovementScript : MonoBehaviour
     void Update()
     {
         BugEvent();
+
         if (isBugged)
         {
             rb.velocity = Vector3.zero;
@@ -39,20 +41,20 @@ public class PlayerMovementScript : MonoBehaviour
             if(afterBug)
             {
                 afterBug = false;
-                rb.gravityScale = 1f;
+                rb.gravityScale = 5f;
                 transform.position = new Vector2(-7f, -0.49f);
                 DeletePrefabs();
             }
 
-            rb.gravityScale = 1f;
+            rb.gravityScale = 5f;
 
             if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && canJump)
             {
-                audioScript.PlaySfx(audioScript.jump);
                 Jump();
+                audioScript.PlaySfx(audioScript.jump);
             }
 
-            if ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)))
+            if ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && !offGround)
             {
                 Duck();
             }
@@ -84,6 +86,7 @@ public class PlayerMovementScript : MonoBehaviour
         Debug.Log("key was pressed");
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         canJump = false;
+        offGround = true;
     }
 
     private void Duck()
@@ -91,6 +94,7 @@ public class PlayerMovementScript : MonoBehaviour
         Vector3 newScale = transform.localScale;
         newScale.x = 1.3f;
         newScale.y = 0.4f;
+        transform.position = new Vector2(transform.position.x, -0.8f);
         transform.localScale = newScale;
     }
 
@@ -109,6 +113,7 @@ public class PlayerMovementScript : MonoBehaviour
         if(collision.gameObject.name == "Road")
         {
             Debug.Log("Can jump loh");
+            offGround = false;
             canJump = true;
         }
         if(collision.gameObject.CompareTag("Obstacle"))
