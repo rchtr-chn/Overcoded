@@ -19,7 +19,7 @@
 <h2>💻 OVERCODED</h2>
   <img align="left" width="300"alt="1759051950833525040143945092613" src="https://github.com/user-attachments/assets/188808d8-3bbc-4738-b37b-7cab910a8e4e" />
 
-  You play as a stressed out and sleep deprived game developer trying to bugfix your game, eyes fixated on the screen, fingers locked in position to execute every single line of code to ensure the game runs smoothly. However, problems start to appear.. Haunting the player the longer they try to survive.
+  You play as a stressed and sleep-deprived developer racing to fix bugs before your game collapses. Eyes locked on the screen and fingers flying across the keys, every second counts. But as you patch one problem, more begin to surface—errors haunting the player like ghosts, piling on pressure the longer they endure. Will you outlast the code or be consumed by it?
   <br/>
   <br/>
   <br/>
