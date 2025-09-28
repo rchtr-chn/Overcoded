@@ -1,3 +1,21 @@
+<table width="100%">
+  <tr>
+    <!-- Top large gif -->
+    <td colspan="2" align="center">
+      <img src="https://github.com/rchtr-chn/Overcoded/raw/main/gif-1.gif" width="100%"/>
+    </td>
+  </tr>
+  <tr>
+    <!-- Bottom two gifs -->
+    <td align="center" width="50%">
+      <img src="https://github.com/rchtr-chn/Overcoded/raw/main/gif-2.gif" width="100%"/>
+    </td>
+    <td align="center" width="50%">
+      <img src="https://github.com/rchtr-chn/Overcoded/raw/main/gif-3.gif" width="100%"/>
+    </td>
+  </tr>
+</table>
+
 <h2>💻 OVERCODED</h2>
   <img align="left" width="300"alt="1759051950833525040143945092613" src="https://github.com/user-attachments/assets/188808d8-3bbc-4738-b37b-7cab910a8e4e" />
 
