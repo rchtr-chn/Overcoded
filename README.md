@@ -18,7 +18,7 @@
   
 <h2>📋 Project Information</h2>
 
-  ![Unity Version 6000.2.2f1](https://img.shields.io/badge/Unity_Version-6000.2.2f1-FFFFFF.svg?style=flat-square&logo=unity) <br/>
+  ![Unity Version 2021.3.45f1](https://img.shields.io/badge/Unity_Version-2021.3.45f1-FFFFFF.svg?style=flat-square&logo=unity) <br/>
   Game Build: ![Windows](https://img.shields.io/badge/Windows-004fe1.svg?style=flat-square&logo=windows) <br/>
   All art assets are made by our Game Artist
   All SFX can be found in [![Pixabay](https://img.shields.io/badge/Pixabay-191B26.svg?style=flat-square&logo=Pixabay)](https://pixabay.com) <br/> <br/>
