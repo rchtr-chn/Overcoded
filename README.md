@@ -26,7 +26,7 @@
   <b>Team:</b>
   - <a href="https://github.com/rchtr-chn">Richter Cheniago</a> (Game programmer)
   - <a href="https://github.com/wi1wil">Wilson Halim</a> (Assisting Game programmer)
-  - <a href="https://jordytandiano.carrd.co">Jordy Tandiano</a> (Game Designer and Sound Artist)
+  - <a href="https://jordytandiano.my.canva.site">Jordy Tandiano</a> (Game Designer and Sound Artist)
   - <a href="https://kelvinkel.carrd.co">Kelvin</a> (Assisting Game programmer)
   - <a href="https://www.behance.net/epenaja">Melvern Sjah</a> (Game designer and artist)
 
