@@ -38,36 +38,37 @@
 
   | Script | Description |
   | ------ | ----------- |
-  | `DeckManagerScript.cs` | Manages starting deck and saves any modification done to deck by player |
-  | `HandManagerScript.cs` | Receives cards from `DeckManagerScript.cs` to be drawn on hand and returned to when needed|
-  | `GameManagerScript.cs` | Organizes and centralized other minor managers and manages the turn-based system |
-  | `ShopManagerScript.cs` | Manages the shop's cards to be displayed and sold to the player |
-  | `Card.cs` | Blueprint for SOs that will carry a card's value and the potential card effect |
+  | `PlayerTypingScript.cs` | Manages player's ability to type in lines of code in the game |
+  | `PopUpSpawnerScript.cs` | Manages the pop up virus ads minigame functionality appearing on the player's screen |
+  | `FlyScript.cs` | Manages the fly minigame roaming around player screen in the game |
+  | `CoffeeScript.cs` | Manages the caffeine crashout minigame functionality in the game |
+  | `ChatBubbleScript.cs` | Manages the chat bubble minigame functionality appearing above the player's phone |
   | etc. |
 
 <h2>📂 Folder Descriptions</h2>
 
   ```
-  ├── Rat-Gambler                      # Root folder of this project
+  ├── Overcoded                     # Root folder of this project
     ...
     ├── Assets                         # Assets folder of this project
       ...
-      ├── Audio                        # Stores all BGM and audio clips used in this project
-      ├── Fonts                        # Stores all fonts used in this project
-      ├── Resources                    # Parent folder to organize blueprints (Scriptable Objects) and prefabs
-        ├── CardData                   # Parent folder of all scriptable object types that are used in this project
-          ...
-        ├── Prefabs                    # Parent folder that stores prefabs that are instantiated during the project's runtime
-          ...
-      ├── Scenes                       # Stores all Unity Scenes used in this project
-      ├── Scripts                      # Parent folder of all types of scripts that are used in this project
-        ├── BackgroundManagers         # Stores scripts related to managers that function the game in the background
-        ├── CardBehavior               # Stores scripts related to a card prefab
-        ├── CardEffects                # Stores scripts consisting the logic behind every power cards
-        ├── Cardshop                   # Stores scripts related to the card shop
-        ├── CardSystem                 # Stores scripts related to card deck creation and usability during gameplay
-        ├── Cookie                     # Stores scripts related to wagering cookies mechanic and cookie value modification
-      ├── Sprites                      # Parent folder of all sprites that are used in this project
+      ├── Animation                        # Stores all animation clip and controllers
+      ├── Audio Mixers                      # Stores all audio mixer assets
+      ├── Dialogue                   # Stores all dialogue used in the game via .ink format
+      ├── Fonts                   # Stores all font assets used
+      ├── Prefabs                   # Stores all prefabs used
+      ├── Scripts                      # Stores all scripts used in this project
+        ├── GameOver                   # Stores all scripts related to the game over scene
+        ├── Managers                   # Stores all scripts that function the background of the game
+        ├── Minigames                   # Parent folder to organize all scripts related to gameplay loop
+          ├── Chat Bubble                   # Stores all scripts related to the chat bubble minigame
+          ├── Coffee                   # Stores all scripts related to the coffee drink minigame
+          ├── Fly                   # Stores all scripts related to the flies minigame
+          ├── Main                   # Stores all scripts related to the core gameplay loop (endless runner, and code typing minigame)
+          ├── PopUpVirus                   # Parent folder to organize blueprints (Scriptable Objects) and prefabs
+        ├── Other                   # Stores other scripts outside previous categories
+      ├── SFX                   # Stores all SFX used in this project
+      ├── Sprites                   # Stores all placeholder/temporary and final art assets used in this project
       ...
     ...
   ...
