@@ -57,7 +57,7 @@
 
 <h2>💡 My Contributions</h2>
 
-  as the main programmer of this project, I am tasked to make most of the mechanics that make the game function as intended, such as the main endless runner mechanic, code typing minigame, pop-up virus ads minigame, cellphone notification minigame, etc.
+  As the main programmer of this project, I am tasked to make most of the mechanics that make the game function as intended, such as the main endless runner mechanic, code typing minigame, pop-up virus ads minigame, cellphone notification minigame, etc.
 
 <h2>📜 Scripts</h2>
 
