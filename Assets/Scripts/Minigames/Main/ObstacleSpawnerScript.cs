@@ -1,40 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObstacleSpawnerScript : MonoBehaviour
 {
-    public GameObject[] prefab;
-    public Vector3 spawnPos;
-    public Vector3 spawnPosInv;
-    public float prefabSpeed = 5f;
-    private float timer;
-    public float timerCap;
-    public int choice;
+    public GameObject[] Prefab;
+    public Vector3 SpawnPos = new Vector3(1f, -0.7f, 0f);
+    public Vector3 SpawnPosInv = new Vector3(1f, 0.2f, 0f);
+    public float PrefabSpeed = 5f;
+    private float _timer;
+    public float TimerCap = 2f;
+    public int Choice;
 
-    public PlayerMovementScript isBugScript;
-    public WaveScript waveScript;
+    public PlayerMovementScript IsBugScript;
+    public WaveScript WaveScript;
     void Start()
     {
         //Instantiate(prefab[0], spawnPos, Quaternion.identity);
-        if(isBugScript == null)
-            isBugScript = GameObject.Find("Player").GetComponent<PlayerMovementScript>();
-        if(waveScript == null)
-            waveScript = GameObject.Find("Player").GetComponent<WaveScript>();
+        if(IsBugScript == null)
+            IsBugScript = GameObject.Find("Player").GetComponent<PlayerMovementScript>();
+        if(WaveScript == null)
+            WaveScript = GameObject.Find("Player").GetComponent<WaveScript>();
     }
     void Update()
     {
-        if (isBugScript.isBugged) return;
+        if (IsBugScript.IsBugged) return;
 
-        if (waveScript.currentWave > 1)
-            choice = Random.Range(0, prefab.Length);
+        if (WaveScript.CurrentWave > 1)
+            Choice = Random.Range(0, Prefab.Length);
         else
-            choice = 0;
+            Choice = 0;
 
-        timer += Time.deltaTime;
-        if (timer >= timerCap)
+        _timer += Time.deltaTime;
+        if (_timer >= TimerCap)
         {
-            timer = 0;
+            _timer = 0;
             //if (choice == 1)
                 //Instantiate(prefab[choice], spawnPosInv, Quaternion.Euler(180, 0, 0));
             //else

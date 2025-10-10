@@ -98,8 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da298df0175e8442ab7de6ba9de10e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 634932685, guid: db85aeee03d51224584590f092f3cb50, type: 3}
+  Sprites:
+  - {fileID: 173513695, guid: db85aeee03d51224584590f092f3cb50, type: 3}
   - {fileID: -1665068032, guid: db85aeee03d51224584590f092f3cb50, type: 3}
   - {fileID: 173513695, guid: db85aeee03d51224584590f092f3cb50, type: 3}
   - {fileID: 1426618592, guid: db85aeee03d51224584590f092f3cb50, type: 3}

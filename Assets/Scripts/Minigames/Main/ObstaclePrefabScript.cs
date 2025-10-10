@@ -1,23 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObstaclePrefabScript : MonoBehaviour
 {
-    public Rigidbody2D rb;
-    private PlayerMovementScript playerMovementScript;
-    private ObstacleSpawnerScript obstacleSpawnerScript;
-    private Transform spawnerPos;
+    public Rigidbody2D Rb;
+    private PlayerMovementScript _playerMovementScript;
+    private ObstacleSpawnerScript _obstacleSpawnerScript;
+    private Transform _spawnerPos;
     void Start()
     {
-        playerMovementScript = GameObject.Find("Player").GetComponent<PlayerMovementScript>();
-        obstacleSpawnerScript = GameObject.Find("Obstacle-Spawner").GetComponent<ObstacleSpawnerScript>();
-        spawnerPos = GameObject.Find("Obstacle-Spawner").GetComponent<Transform>();
+        _playerMovementScript = GameObject.Find("Player").GetComponent<PlayerMovementScript>();
+        _obstacleSpawnerScript = GameObject.Find("Obstacle-Spawner").GetComponent<ObstacleSpawnerScript>();
+        _spawnerPos = GameObject.Find("Obstacle-Spawner").GetComponent<Transform>();
     }
     void Update()
     {
-        float distance = Vector2.Distance(transform.position, spawnerPos.position);
+        float distance = Vector2.Distance(transform.position, _spawnerPos.position);
         if(distance > 20f)
         {
             Destroy(gameObject);
@@ -29,7 +26,7 @@ public class ObstaclePrefabScript : MonoBehaviour
         //}
         //else
         //{
-            rb.velocity = new Vector2(-obstacleSpawnerScript.prefabSpeed, rb.velocity.y);
+            Rb.velocity = new Vector2(-_obstacleSpawnerScript.PrefabSpeed, Rb.velocity.y);
         //}
     }
 }

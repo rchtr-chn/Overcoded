@@ -1,57 +1,55 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using TMPro;
-using System.Collections;
 
 public class FlyScript : MonoBehaviour
 {
-    public FlySpawnerScript flySpawnerScript;
-    public WaveScript waveScript;
+    public FlySpawnerScript FlySpawnerScript;
+    public WaveScript WaveScript;
 
     [Header("Input Handler")]
     private Camera _mainCamera;
 
     [Header("Monitor Bounds")]
-    [SerializeField] private GameObject monitorBounds1;
-    [SerializeField] private GameObject monitorBounds2;
+    [SerializeField] private GameObject _monitorBounds1;
+    [SerializeField] private GameObject _monitorBounds2;
 
     [Header("Screen Bounds & Fly Size")]
-    private Vector2 screenBounds;
-    private float objectHeight;
-    private float objectWidth;
+    private Vector2 _screenBounds;
+    private float _objectHeight;
+    private float _objectWidth;
 
     [Header("Fly Movement")]
-    private Rigidbody2D rb; 
-    private float angle = 0f;
-    public float speed;
-    public float directionChangeInterval = 2f; 
-    public float frequency = 1f;
-    public float magnitude = 0.5f; 
-    public float avoidanceRadius = 2f; 
+    private Rigidbody2D _rb; 
+    private float _angle = 0f;
+    public float Speed = 2;
+    public float DirectionChangeInterval = 2f; 
+    public float Frequency = 1f;
+    public float Magnitude = 0.5f; 
+    public float AvoidanceRadius = 2f; 
 
     [Header("Monitor Bounds")]
-    private Vector3 direction;
-    private Vector3 center1, center2;
-    private bool circlingFirstRound = true;
-    private float radius1, radius2;
+    private Vector3 _direction;
+    private Vector3 _center1, _center2;
+    private bool _circlingFirstRound = true;
+    private float _radius1, _radius2;
 
     [Header("Floating Text")]
-    [SerializeField] private TextMeshProUGUI floatingTextPrefab;
-    [SerializeField] private float duration = 5f;
+    [SerializeField] private TextMeshProUGUI _floatingTextPrefab;
+    [SerializeField] private float _duration = 5f;
 
     [Header("UI Elements")]
-    [SerializeField] private Canvas canvas;
+    [SerializeField] private Canvas _canvas;
 
     void Start() 
     {
-        flySpawnerScript = GameObject.Find("Fly-Spawner").GetComponent<FlySpawnerScript>();
-        waveScript = GameObject.Find("Player").GetComponent<WaveScript>();
-        rb = GetComponent<Rigidbody2D>();
+        FlySpawnerScript = GameObject.Find("Fly-Spawner").GetComponent<FlySpawnerScript>();
+        WaveScript = GameObject.Find("Player").GetComponent<WaveScript>();
+        _rb = GetComponent<Rigidbody2D>();
 
         GetBounds();
        
-        InvokeRepeating("ChangeDirection", 0, directionChangeInterval);
+        InvokeRepeating("ChangeDirection", 0, DirectionChangeInterval);
     }
 
     void Update() 
@@ -67,15 +65,15 @@ public class FlyScript : MonoBehaviour
 
         float buffer = 0.5f;
 
-        if (currentPos.x > screenBounds.x + buffer || currentPos.x < screenBounds.x * -1 - buffer)
+        if (currentPos.x > _screenBounds.x + buffer || currentPos.x < _screenBounds.x * -1 - buffer)
         {
-            direction.x = -direction.x;
+            _direction.x = -_direction.x;
             flipped = true;
         }
 
-        if (currentPos.y > screenBounds.y + buffer || currentPos.y < screenBounds.y * -1 - buffer)
+        if (currentPos.y > _screenBounds.y + buffer || currentPos.y < _screenBounds.y * -1 - buffer)
         {
-            direction.y = -direction.y;
+            _direction.y = -_direction.y;
             flipped = true;
         }
 
@@ -84,73 +82,73 @@ public class FlyScript : MonoBehaviour
             Flip();
         }
 
-        currentPos.x = Mathf.Clamp(currentPos.x, screenBounds.x * -1 - buffer, screenBounds.x + buffer);
-        currentPos.y = Mathf.Clamp(currentPos.y, screenBounds.y * -1 - buffer, screenBounds.y + buffer);
+        currentPos.x = Mathf.Clamp(currentPos.x, _screenBounds.x * -1 - buffer, _screenBounds.x + buffer);
+        currentPos.y = Mathf.Clamp(currentPos.y, _screenBounds.y * -1 - buffer, _screenBounds.y + buffer);
         transform.position = currentPos;
     }
 
     private void GetBounds()
     {
         _mainCamera = Camera.main;
-        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 
-        screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-        objectWidth = transform.GetComponent<SpriteRenderer>().bounds.size.x / 2;
-        objectHeight = transform.GetComponent<SpriteRenderer>().bounds.size.y / 2;
+        _screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+        _objectWidth = transform.GetComponent<SpriteRenderer>().bounds.size.x / 2;
+        _objectHeight = transform.GetComponent<SpriteRenderer>().bounds.size.y / 2;
 
-        monitorBounds1 = GameObject.Find("Monitor1(Clone)");
-        monitorBounds2 = GameObject.Find("Monitor2(Clone)");
+        _monitorBounds1 = GameObject.Find("Monitor1(Clone)");
+        _monitorBounds2 = GameObject.Find("Monitor2(Clone)");
 
-        center1 = monitorBounds1.transform.position;
-        radius1 = monitorBounds1.GetComponent<CircleCollider2D>().radius;
+        _center1 = _monitorBounds1.transform.position;
+        _radius1 = _monitorBounds1.GetComponent<CircleCollider2D>().radius;
 
-        if(waveScript.currentWave > 7)
+        if(WaveScript.CurrentWave > 7)
         {
-            center2 = monitorBounds2.transform.position;
-            radius2 = monitorBounds2.GetComponent<CircleCollider2D>().radius;
+            _center2 = _monitorBounds2.transform.position;
+            _radius2 = _monitorBounds2.GetComponent<CircleCollider2D>().radius;
         }
         
     }
 
     private void ChangeDirection()
     {
-        direction = new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), 0).normalized;
-        speed = UnityEngine.Random.Range(7f, 15f);
+        _direction = new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), 0).normalized;
+        Speed = UnityEngine.Random.Range(7f, 15f);
         Flip();
     }
 
     private void Move()
     {
         Vector3 avoidanceDirection = GetAvoidanceDirection();
-        rb.velocity = (direction + avoidanceDirection) * speed;
+        _rb.velocity = (_direction + avoidanceDirection) * Speed;
 
-        angle += speed * Time.deltaTime;
-        if(waveScript.currentWave < 8)
+        _angle += Speed * Time.deltaTime;
+        if(WaveScript.CurrentWave < 8)
         {
-            float x = Mathf.Cos(angle * frequency) * (radius1);
-            float y = Mathf.Sin(angle * frequency) * (radius1);
+            float x = Mathf.Cos(_angle * Frequency) * (_radius1);
+            float y = Mathf.Sin(_angle * Frequency) * (_radius1);
         }
         else
         {
-            float x = Mathf.Cos(angle * frequency) * (circlingFirstRound ? radius1 : radius2);
-            float y = Mathf.Sin(angle * frequency) * (circlingFirstRound ? radius1 : radius2);
+            float x = Mathf.Cos(_angle * Frequency) * (_circlingFirstRound ? _radius1 : _radius2);
+            float y = Mathf.Sin(_angle * Frequency) * (_circlingFirstRound ? _radius1 : _radius2);
         }
         
 
-        if(circlingFirstRound)
+        if(_circlingFirstRound)
         {
-            transform.position = Vector3.MoveTowards(transform.position, center1, speed * Time.deltaTime);
-            if (transform.position == center1)
+            transform.position = Vector3.MoveTowards(transform.position, _center1, Speed * Time.deltaTime);
+            if (transform.position == _center1)
             {
-                circlingFirstRound = false;
+                _circlingFirstRound = false;
             }
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, center2, speed * Time.deltaTime);
-            if (transform.position == center2)
+            transform.position = Vector3.MoveTowards(transform.position, _center2, Speed * Time.deltaTime);
+            if (transform.position == _center2)
             {
-                circlingFirstRound = true;
+                _circlingFirstRound = true;
             }
         }
     }
@@ -161,7 +159,7 @@ public class FlyScript : MonoBehaviour
         cursorPosition.z = 0;
 
         Vector3 toCursor = cursorPosition - transform.position;
-        if (toCursor.magnitude < avoidanceRadius)
+        if (toCursor.magnitude < AvoidanceRadius)
         {
             return -toCursor.normalized;    
         }
@@ -170,7 +168,7 @@ public class FlyScript : MonoBehaviour
 
     private void Flip()
     {
-        if (direction.x > 0)
+        if (_direction.x > 0)
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
@@ -192,34 +190,34 @@ public class FlyScript : MonoBehaviour
             Debug.Log("Hit!");
             Vector2 canvasPosition = WorldToCanvasPosition(gameObject.transform.position);
 
-            TextMeshProUGUI floatingText = Instantiate(floatingTextPrefab, canvas.transform);
+            TextMeshProUGUI floatingText = Instantiate(_floatingTextPrefab, _canvas.transform);
             floatingText.text = "Killed!";
             floatingText.GetComponent<RectTransform>().anchoredPosition = canvasPosition;
 
-            Destroy(floatingText.gameObject, duration);
+            Destroy(floatingText.gameObject, _duration);
 
-            flySpawnerScript.isActive = false;
+            FlySpawnerScript.IsActive = false;
             Destroy(gameObject);
         }
     }
 
     void AdjustSpeed()
     {
-        if (waveScript.currentWave == 3)
+        if (WaveScript.CurrentWave == 3)
         {
-            speed = 2f;
+            Speed = 2f;
         }
-        else if (waveScript.currentWave == 8)
+        else if (WaveScript.CurrentWave == 8)
         {
-            speed = 3f;
+            Speed = 3f;
         }
-        else if(waveScript.currentWave == 9)
+        else if(WaveScript.CurrentWave == 9)
         {
-            speed = 4f;
+            Speed = 4f;
         }
-        else if(waveScript.currentWave > 9)
+        else if(WaveScript.CurrentWave > 9)
         {
-            speed = 5f + 1 * waveScript.currentWave - 10;
+            Speed = 5f + 1 * WaveScript.CurrentWave - 10;
         }
     }
 

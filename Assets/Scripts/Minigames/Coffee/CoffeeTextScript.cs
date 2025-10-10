@@ -16,7 +16,7 @@ public class CoffeeTextScript : MonoBehaviour
 
     private void Update()
     {
-        if(coffeeScript.currentInsanity < 40f && coffeeScript.currentInsanity > 0.1f)
+        if(coffeeScript.CurrentInsanity < 40f && coffeeScript.CurrentInsanity > 0.1f)
             prompt.enabled = true;
         else
             prompt.enabled = false;

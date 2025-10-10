@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2918578319053846352}
   - component: {fileID: 8801215462816312816}
-  - component: {fileID: 722240678252571382}
+  - component: {fileID: 1116190298590131685}
   m_Layer: 0
   m_Name: MANAGER
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 343, y: 385, z: -5.937154}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.1955404, y: 2.1955404, z: 2.1955404}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -45,14 +45,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d855c6ea4ad282438332c3086102e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartManager: {fileID: 0}
+  StartMenu: {fileID: 0}
   OptionsMenu: {fileID: 0}
-  pressSpace: {fileID: 0}
+  PressSpace: {fileID: 0}
   Target: {fileID: 0}
   OptionsTarget: {fileID: 0}
-  zoomingSpeed: 10
-  zoomingSpeed2: 50
---- !u!114 &722240678252571382
+  ZoomingSpeed: 10
+  ZoomingSpeed2: 50
+--- !u!114 &1116190298590131685
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,5 +64,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9105b0ebe94884b903a650d1e2e6bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 938059dc21008ac40a6934f1de345805, type: 2}
-  musicSlider: {fileID: 0}
+  ResDropdown: {fileID: 0}
+  _audioMixer: {fileID: 24100000, guid: 938059dc21008ac40a6934f1de345805, type: 2}
+  _musicSlider: {fileID: 0}

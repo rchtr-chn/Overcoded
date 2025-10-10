@@ -1,61 +1,59 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ChatBubbleSpawnerScript : MonoBehaviour
 {
-    public GameObject prefab;
-    public List<GameObject> toSpawn = new List<GameObject>();
-    public WaveScript waveScript;
-    int mockWave = 0;
-    public int availablePos = 4;
-    public SpriteRenderer screenSprite;
+    public GameObject Prefab;
+    public List<GameObject> ToSpawn = new List<GameObject>();
+    public WaveScript WaveScript;
+    private int _mockWave = 0;
+    public int AvailablePos = 4;
+    public SpriteRenderer ScreenSprite;
 
     public void Start()
     {
-        waveScript = GameObject.Find("Player").GetComponent<WaveScript>();
-        screenSprite = GameObject.Find("Screen").GetComponent<SpriteRenderer>();
+        WaveScript = GameObject.Find("Player").GetComponent<WaveScript>();
+        ScreenSprite = GameObject.Find("Screen").GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (waveScript.currentWave < 7) return;
+        if (WaveScript.CurrentWave < 7) return;
 
-        screenSprite.enabled = true;
-        if (mockWave < waveScript.currentWave && waveScript.currentWave > 6)
+        ScreenSprite.enabled = true;
+        if (_mockWave < WaveScript.CurrentWave && WaveScript.CurrentWave > 6)
         {
-            if (waveScript.currentWave == 7)
+            if (WaveScript.CurrentWave == 7)
             {
-                mockWave = waveScript.currentWave;
+                _mockWave = WaveScript.CurrentWave;
                 for (int i = 0; i < 2; i++)
                 {
-                    toSpawn.Add(prefab);
+                    ToSpawn.Add(Prefab);
                 }
             }
-            else if (waveScript.currentWave == 8)
+            else if (WaveScript.CurrentWave == 8)
             {
-                mockWave = waveScript.currentWave;
+                _mockWave = WaveScript.CurrentWave;
                 for (int i = 0; i < 3; i++)
                 {
-                    toSpawn.Add(prefab);
+                    ToSpawn.Add(Prefab);
                 }
             }
-            else if (waveScript.currentWave == 9)
+            else if (WaveScript.CurrentWave == 9)
             {
-                mockWave = waveScript.currentWave;
+                _mockWave = WaveScript.CurrentWave;
                 for (int i = 0; i < 5; i++)
                 {
-                    toSpawn.Add(prefab);
+                    ToSpawn.Add(Prefab);
                 }
             }
-            else if (waveScript.currentWave >= 10)
+            else if (WaveScript.CurrentWave >= 10)
             {
-                mockWave = waveScript.currentWave;
-                for (int i = 0; i < 7 + 2 * (waveScript.currentWave - 10); i++)
+                _mockWave = WaveScript.CurrentWave;
+                for (int i = 0; i < 7 + 2 * (WaveScript.CurrentWave - 10); i++)
                 {
-                    toSpawn.Add(prefab);
+                    ToSpawn.Add(Prefab);
                 }
             }
         }
@@ -74,15 +72,15 @@ public class ChatBubbleSpawnerScript : MonoBehaviour
 
     void SpawnEnt()
     {
-        if (availablePos == 0) return;
+        if (AvailablePos == 0) return;
 
-        for(int i = 0 ; i < toSpawn.Count ; i++)
+        for(int i = 0 ; i < ToSpawn.Count ; i++)
         {
-            if (toSpawn.Contains(prefab) && availablePos > 0)
+            if (ToSpawn.Contains(Prefab) && AvailablePos > 0)
             {
-                availablePos--;
-                GameObject chatBubble = (GameObject)Instantiate(toSpawn[i],transform.position,Quaternion.identity);
-                toSpawn.RemoveAt(0);
+                AvailablePos--;
+                GameObject chatBubble = (GameObject)Instantiate(ToSpawn[i],transform.position,Quaternion.identity);
+                ToSpawn.RemoveAt(0);
             }
         }
     }

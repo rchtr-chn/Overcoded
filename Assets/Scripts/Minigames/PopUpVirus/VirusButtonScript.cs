@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class VirusButtonScript : MonoBehaviour
 {
-    public GameObject ads;
+    public GameObject Ads;
     public void ClickButton()
     {
-        Destroy(ads);
+        Destroy(Ads);
     }
 }

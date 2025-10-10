@@ -1,29 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WaveScript : MonoBehaviour
 {
-    public AudioManagerScript audioScript;
-    public float totalElapsedTime = 0f;
-    public int currentWave;
-    public bool isWave = false;
+    public AudioManagerScript AudioScript;
+    public float TotalElapsedTime = 0f;
+    public int CurrentWave;
+    public bool IsWave = false;
 
     private void Start()
     {
-        if (audioScript == null) audioScript = GameObject.Find("Audio Manager").GetComponent<AudioManagerScript>();
+        if (AudioScript == null) AudioScript = GameObject.Find("Audio Manager").GetComponent<AudioManagerScript>();
     }
     void Update()
     {
-        if(currentWave == 7 && !isWave)
+        if(CurrentWave == 7 && !IsWave)
         {
-            audioScript.musicSource.Stop();
-            audioScript.musicSource.clip = audioScript.mainBgmChaotic;
-            audioScript.musicSource.Play();
-            isWave = true;
+            AudioScript.MusicSource.Stop();
+            AudioScript.MusicSource.clip = AudioScript.MainBgmChaotic;
+            AudioScript.MusicSource.Play();
+            IsWave = true;
         }
-        totalElapsedTime += Time.deltaTime;
-        currentWave = GetCurrentWave(totalElapsedTime);
+        TotalElapsedTime += Time.deltaTime;
+        CurrentWave = GetCurrentWave(TotalElapsedTime);
         // currentWave = 5;
         //Debug.Log($"Current Wave: {currentWave} | Elapsed Time: {totalElapsedTime:F2} sec");
     }

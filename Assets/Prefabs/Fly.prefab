@@ -100,18 +100,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8daa73d5530a39a44a40b784ef3036e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flySpawnerScript: {fileID: 0}
-  waveScript: {fileID: 0}
-  monitorBounds1: {fileID: 0}
-  monitorBounds2: {fileID: 0}
-  speed: 2
-  directionChangeInterval: 2
-  frequency: 1
-  magnitude: 0.5
-  avoidanceRadius: 2
-  floatingTextPrefab: {fileID: 9189449337334298533, guid: f0f4245d67fe5d941b33d3c68ca1c2d8, type: 3}
-  duration: 5
-  canvas: {fileID: 0}
+  FlySpawnerScript: {fileID: 0}
+  WaveScript: {fileID: 0}
+  _monitorBounds1: {fileID: 0}
+  _monitorBounds2: {fileID: 0}
+  Speed: 2
+  DirectionChangeInterval: 2
+  Frequency: 1
+  Magnitude: 0.5
+  AvoidanceRadius: 2
+  _floatingTextPrefab: {fileID: 9189449337334298533, guid: f0f4245d67fe5d941b33d3c68ca1c2d8, type: 3}
+  _duration: 5
+  _canvas: {fileID: 0}
 --- !u!114 &522852418399056108
 MonoBehaviour:
   m_ObjectHideFlags: 0

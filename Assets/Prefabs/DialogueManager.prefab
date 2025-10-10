@@ -728,18 +728,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c0a759e1fef6d74880ffb431e2627fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialoguePanel: {fileID: 7176882842016179303}
-  dialogueText: {fileID: 4941516125444179819}
-  choicesPanel: {fileID: 828520698861206358}
-  choices:
-  - {fileID: 5952751709527630517}
+  DialoguePanel: {fileID: 7176882842016179303}
+  DialogueText: {fileID: 4941516125444179819}
+  ChoicesPanel: {fileID: 828520698861206358}
+  Choices:
   - {fileID: 2264232475478121552}
-  inkJSONs:
+  - {fileID: 5952751709527630517}
+  InkJSONs:
   - {fileID: 4900000, guid: bdac074f24ba28243861b867c1ac1455, type: 3}
   - {fileID: 4900000, guid: 0ceec38e798c9a3439918f960e419d7b, type: 3}
   - {fileID: 4900000, guid: 5eb9423249ba42345b87b608b540a732, type: 3}
   - {fileID: 4900000, guid: ab9f2ba754e4b1d4b913e5ae11f5c7fe, type: 3}
   - {fileID: 4900000, guid: 51ea093685db2bd41988d1232e37e6dc, type: 3}
+  TriggerTime: 0
+  waveScript: {fileID: 0}
 --- !u!1 &7176882842016179303
 GameObject:
   m_ObjectHideFlags: 0

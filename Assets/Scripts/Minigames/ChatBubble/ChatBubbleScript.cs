@@ -2,62 +2,61 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
-using System.Diagnostics;
 
 public class ChatBubbleScript : MonoBehaviour
 {
     public enum DragDirection { Left, Right, Up, Down }
-    public List<Sprite> sprites = new List<Sprite>();
-    public DragDirection allowedDirection;
-    public float fadeSpeed = 1f;
+    public List<Sprite> Sprites = new List<Sprite>();
+    public DragDirection AllowedDirection;
+    public float FadeSpeed = 1f;
 
-    private Vector3 startPos;
-    private bool isDragging = false;
-    private Vector3 dragStartWorldPos;
-    private SpriteRenderer spriteRenderer;
-    private bool isFading = false;
-    private Vector3 offset;
+    private Vector3 _startPos;
+    private bool _isDragging = false;
+    private Vector3 _dragStartWorldPos;
+    private SpriteRenderer _spriteRenderer;
+    private bool _isFading = false;
+    private Vector3 _offset;
 
-    public List<Transform> targetPositions;
-    public float moveDuration = 1f;
-    private static List<Vector3> occupiedPositions = new List<Vector3>();
-    bool isFree = true;
+    public List<Transform> TargetPositions;
+    public float MoveDuration = 1f;
+    private static List<Vector3> _occupiedPositions = new List<Vector3>();
+    private bool _isFree = true;
 
-    public ChatBubbleSpawnerScript chatBubbleSpawnerScript;
+    public ChatBubbleSpawnerScript ChatBubbleSpawnerScript;
 
     void Start()
     {
-        allowedDirection = GetRandomEnumValue<DragDirection>();
+        AllowedDirection = GetRandomEnumValue<DragDirection>();
 
-        if (spriteRenderer == null)
-            spriteRenderer = GetComponent<SpriteRenderer>();
+        if (_spriteRenderer == null)
+            _spriteRenderer = GetComponent<SpriteRenderer>();
 
-        switch (allowedDirection)
+        switch (AllowedDirection)
         {
             case DragDirection.Left:
-                spriteRenderer.sprite = sprites[2];
+                _spriteRenderer.sprite = Sprites[2];
                 break;
             case DragDirection.Right:
-                spriteRenderer.sprite = sprites[3];
+                _spriteRenderer.sprite = Sprites[3];
                 break;
             case DragDirection.Up:
-                spriteRenderer.sprite = sprites[0];
+                _spriteRenderer.sprite = Sprites[0];
                 break;
             case DragDirection.Down:
-                spriteRenderer.sprite = sprites[1];
+                _spriteRenderer.sprite = Sprites[1];
                 break;
         }
 
         GetTargetPos();
 
-        chatBubbleSpawnerScript = GameObject.Find("Cell-Phone").GetComponent<ChatBubbleSpawnerScript>();
+        ChatBubbleSpawnerScript = GameObject.Find("Cell-Phone").GetComponent<ChatBubbleSpawnerScript>();
 
         StartCoroutine(FadeIn());
 
         Vector3 availablePosition = FindAvailablePosition();
         if (availablePosition != Vector3.zero)
         {
-            isFree = false;
+            _isFree = false;
             //chatBubbleSpawnerScript.availablePos--;
             MoveToTarget(availablePosition);
         }
@@ -65,12 +64,12 @@ public class ChatBubbleScript : MonoBehaviour
 
     private void Update()
     {
-        if (isFree)
+        if (_isFree)
         {
             Vector3 availablePosition = FindAvailablePosition();
             if (availablePosition != Vector3.zero)
             {
-                isFree = false;
+                _isFree = false;
                 //chatBubbleSpawnerScript.availablePos--;
                 MoveToTarget(availablePosition);
             }
@@ -84,33 +83,33 @@ public class ChatBubbleScript : MonoBehaviour
     }
     private void GetTargetPos()
     {
-        targetPositions.Add(GameObject.Find("Chat-Pos-1").GetComponent<Transform>());
-        targetPositions.Add(GameObject.Find("Chat-Pos-2").GetComponent<Transform>());
-        targetPositions.Add(GameObject.Find("Chat-Pos-3").GetComponent<Transform>());
-        targetPositions.Add(GameObject.Find("Chat-Pos-4").GetComponent<Transform>());
+        TargetPositions.Add(GameObject.Find("Chat-Pos-1").GetComponent<Transform>());
+        TargetPositions.Add(GameObject.Find("Chat-Pos-2").GetComponent<Transform>());
+        TargetPositions.Add(GameObject.Find("Chat-Pos-3").GetComponent<Transform>());
+        TargetPositions.Add(GameObject.Find("Chat-Pos-4").GetComponent<Transform>());
     }
 
     void OnMouseDown()
     {
-        if (isFading) return;
+        if (_isFading) return;
 
-        startPos = Input.mousePosition;
-        dragStartWorldPos = transform.position;
+        _startPos = Input.mousePosition;
+        _dragStartWorldPos = transform.position;
 
-        Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(new Vector3(startPos.x, startPos.y, Camera.main.WorldToScreenPoint(transform.position).z));
-        offset = transform.position - worldMousePos;
+        Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(new Vector3(_startPos.x, _startPos.y, Camera.main.WorldToScreenPoint(transform.position).z));
+        _offset = transform.position - worldMousePos;
 
-        isDragging = true;
+        _isDragging = true;
     }
 
     void OnMouseDrag()
     {
-        if (!isDragging || isFading) return;
+        if (!_isDragging || _isFading) return;
 
         Vector3 currentMousePos = Input.mousePosition;
-        Vector3 dragVector = currentMousePos - startPos;
+        Vector3 dragVector = currentMousePos - _startPos;
 
-        switch (allowedDirection)
+        switch (AllowedDirection)
         {
             case DragDirection.Left:
                 if (dragVector.x < 0 && Mathf.Abs(dragVector.x) > Mathf.Abs(dragVector.y))
@@ -133,15 +132,15 @@ public class ChatBubbleScript : MonoBehaviour
 
     void OnMouseUp()
     {
-        if (isFading) return;
+        if (_isFading) return;
 
-        isDragging = false;
+        _isDragging = false;
         Vector3 endPos = Input.mousePosition;
-        Vector3 direction = endPos - startPos;
+        Vector3 direction = endPos - _startPos;
 
         bool correctDirection = false;
 
-        switch (allowedDirection)
+        switch (AllowedDirection)
         {
             case DragDirection.Left:
                 correctDirection = direction.x < 0 && Mathf.Abs(direction.x) > Mathf.Abs(direction.y);
@@ -166,18 +165,18 @@ public class ChatBubbleScript : MonoBehaviour
     private void MoveObject(Vector3 mousePos)
     {
         Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.WorldToScreenPoint(transform.position).z));
-        worldMousePos += offset;
+        worldMousePos += _offset;
         worldMousePos.z = transform.position.z;
 
         transform.position = worldMousePos;
     }
     private Vector3 FindAvailablePosition()
     {
-        foreach (Transform target in targetPositions)
+        foreach (Transform target in TargetPositions)
         {
-            if (!occupiedPositions.Contains(target.position))
+            if (!_occupiedPositions.Contains(target.position))
             {
-                occupiedPositions.Add(target.position);
+                _occupiedPositions.Add(target.position);
                 return target.position;
             }
         }
@@ -193,9 +192,9 @@ public class ChatBubbleScript : MonoBehaviour
         Vector3 startPosition = transform.position;
         float elapsedTime = 0f;
 
-        while (elapsedTime < moveDuration)
+        while (elapsedTime < MoveDuration)
         {
-            transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / moveDuration);
+            transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / MoveDuration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -205,34 +204,34 @@ public class ChatBubbleScript : MonoBehaviour
 
     private IEnumerator FadeIn()
     {
-        isFading = true;
+        _isFading = true;
         float alpha = 0f;
-        spriteRenderer.color = new Color(1f, 1f, 1f, alpha);
+        _spriteRenderer.color = new Color(1f, 1f, 1f, alpha);
 
         while (alpha < 1f)
         {
-            alpha += Time.deltaTime * fadeSpeed;
-            spriteRenderer.color = new Color(1f, 1f, 1f, alpha);
+            alpha += Time.deltaTime * FadeSpeed;
+            _spriteRenderer.color = new Color(1f, 1f, 1f, alpha);
             yield return null;
         }
 
-        isFading = false;
+        _isFading = false;
     }
 
     private IEnumerator FadeOutAndDestroy()
     {
-        isFading = true;
+        _isFading = true;
         float alpha = 1f;
 
         while (alpha > 0f)
         {
-            alpha -= Time.deltaTime * fadeSpeed;
-            spriteRenderer.color = new Color(1f, 1f, 1f, alpha);
+            alpha -= Time.deltaTime * FadeSpeed;
+            _spriteRenderer.color = new Color(1f, 1f, 1f, alpha);
             yield return null;
         }
 
         Destroy(gameObject);
-        occupiedPositions.RemoveAt(0);
-        chatBubbleSpawnerScript.availablePos++;
+        _occupiedPositions.RemoveAt(0);
+        ChatBubbleSpawnerScript.AvailablePos++;
     }
 }

@@ -1,12 +1,9 @@
 using System.Linq;
-using System.Threading;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerTypingScript : MonoBehaviour
 {
-    //WORDBANK NEEDED~!!!!
     private readonly string[] wordBank =
     {
         "set player.speed = 5;", "set gravity = on;", "enable hitbox;",
@@ -54,30 +51,30 @@ public class PlayerTypingScript : MonoBehaviour
         "ResetHeap();", "DisableGarbage();", "EnableCompression();"
     };
 
-    public Text promptText;
-    public Text inputText;
-    public PlayerMovementScript playerMovementScript;
-    public ObstacleSpawnerScript obstacleSpawnerScript;
-    public AudioManagerScript audioScript;
-    public float timer, timerCap;
-    private bool bugAfflicted = false;
-    private int bugIndex = -1;
+    public Text PromptText;
+    public Text InputText;
+    public PlayerMovementScript PlayerMovementScript;
+    public ObstacleSpawnerScript ObstacleSpawnerScript;
+    public AudioManagerScript AudioScript;
+    public float Timer, TimerCap;
+    private bool _bugAfflicted = false;
+    private int _bugIndex = -1;
 
-    private string currentPrompt = string.Empty;
-    private string currentInput = string.Empty;
+    private string _currentPrompt = string.Empty;
+    private string _currentInput = string.Empty;
     void Start()
     {
         //timerCap = 10f;
         //initialize coding minigame, CHANGE WHEN WORDBANK IS ADDED
-        if (audioScript == null) audioScript = GameObject.Find("Audio Manager").GetComponent<AudioManagerScript>();
-        obstacleSpawnerScript = GameObject.Find("Obstacle-Spawner").GetComponent<ObstacleSpawnerScript>();
+        if (AudioScript == null) AudioScript = GameObject.Find("Audio Manager").GetComponent<AudioManagerScript>();
+        ObstacleSpawnerScript = GameObject.Find("Obstacle-Spawner").GetComponent<ObstacleSpawnerScript>();
         GetNewPrompt(wordBank[Random.Range(0, wordBank.Count())]);
         InvisibleText();
     }
 
     void Update()
     {
-        if(playerMovementScript.isBugged)
+        if(PlayerMovementScript.IsBugged)
         {
             //timer += Time.deltaTime;
             //if(timer > timerCap)
@@ -94,10 +91,10 @@ public class PlayerTypingScript : MonoBehaviour
             //    GetNewPrompt(wordBank[Random.Range(0, wordBank.Count())]);
             //    return;
             //}
-            if(!bugAfflicted)
+            if(!_bugAfflicted)
             {
                 AfflictDebuffs();
-                bugAfflicted = true;
+                _bugAfflicted = true;
             }
 
             VisibleText();
@@ -107,25 +104,25 @@ public class PlayerTypingScript : MonoBehaviour
 
     private void AfflictDebuffs()
     {
-        bugIndex = Random.Range(0, 2);
+        _bugIndex = Random.Range(0, 2);
 
-        switch (bugIndex)
+        switch (_bugIndex)
         {
             case 0:
                 Debug.Log("Afflicting debuff: Increase obstacle speed");
                 // Example debuff: Increase obstacle speed
-                obstacleSpawnerScript.prefabSpeed += 2f;
+                ObstacleSpawnerScript.PrefabSpeed += 2f;
                 break;
             case 1:
                 Debug.Log("Afflicting debuff: Invert player controls");
                 // Example debuff: invert player controls
-                (playerMovementScript.jumpKey, playerMovementScript.duckKey) =
-                    (playerMovementScript.duckKey, playerMovementScript.jumpKey);
+                (PlayerMovementScript.JumpKey, PlayerMovementScript.DuckKey) =
+                    (PlayerMovementScript.DuckKey, PlayerMovementScript.JumpKey);
                 break;
             case 2:
                 Debug.Log("Afflicting debuff: Decrease gravity");
                 // Example debuff: Decrease gravity
-                playerMovementScript.rb.gravityScale -= 1f;
+                PlayerMovementScript.Rb.gravityScale -= 1f;
                 break;
             default:
                 // Default case if needed
@@ -139,16 +136,16 @@ public class PlayerTypingScript : MonoBehaviour
         {
             case 0:
                 // Revert obstacle speed increase
-                obstacleSpawnerScript.prefabSpeed -= 2f;
+                ObstacleSpawnerScript.PrefabSpeed -= 2f;
                 break;
             case 1:
                 // Revert player controls
-                (playerMovementScript.jumpKey, playerMovementScript.duckKey) =
-                    (playerMovementScript.duckKey, playerMovementScript.jumpKey);
+                (PlayerMovementScript.JumpKey, PlayerMovementScript.DuckKey) =
+                    (PlayerMovementScript.DuckKey, PlayerMovementScript.JumpKey);
                 break;
             case 2:
                 // Revert gravity change
-                playerMovementScript.rb.gravityScale += 1f;
+                PlayerMovementScript.Rb.gravityScale += 1f;
                 break;
             default:
                 // Default case if needed
@@ -158,61 +155,61 @@ public class PlayerTypingScript : MonoBehaviour
 
     private void GetNewPrompt(string word)
     {
-        currentPrompt = word;
-        promptText.text = currentPrompt;
+        _currentPrompt = word;
+        PromptText.text = _currentPrompt;
     }
 
     private void TypeInput()
     {
         foreach (char c in Input.inputString)
         {
-            audioScript.PlaySfx(audioScript.typing);
+            AudioScript.PlaySfx(AudioScript.Typing);
 
             if (c == '\n' || c == '\r')
             {
-                timer = 0f;
+                Timer = 0f;
                 if(!CodeValidity())
                 {
-                    audioScript.PlaySfx(audioScript.incorrect);
-                    Debug.Log("bugIndex =" + bugIndex);
+                    AudioScript.PlaySfx(AudioScript.Incorrect);
+                    Debug.Log("bugIndex =" + _bugIndex);
                 }
                 else
                 {
-                    Debug.Log("bugIndex =" + bugIndex);
-                    if (bugAfflicted || bugIndex != -1)
+                    Debug.Log("bugIndex =" + _bugIndex);
+                    if (_bugAfflicted || _bugIndex != -1)
                     {
                         Debug.Log("bug removed!");
-                        RevertDebuffs(bugIndex);
-                        bugAfflicted = false;
+                        RevertDebuffs(_bugIndex);
+                        _bugAfflicted = false;
                     }
 
-                    bugIndex = -1;
-                    audioScript.PlaySfx(audioScript.correct);
+                    _bugIndex = -1;
+                    AudioScript.PlaySfx(AudioScript.Correct);
                 }
 
 
-                currentInput = "";
-                inputText.text = "";
+                _currentInput = "";
+                InputText.text = "";
                 InvisibleText();
-                playerMovementScript.isBugged = false;
+                PlayerMovementScript.IsBugged = false;
 
                 GetNewPrompt(wordBank[Random.Range(0, wordBank.Count())]);
                 return;
             }
             else if (c == '\b')
             {
-                if(currentInput.Length > 0)
+                if(_currentInput.Length > 0)
                 {
-                    currentInput = currentInput.Substring(0, currentInput.Length - 1);
-                    inputText.text = currentInput;
+                    _currentInput = _currentInput.Substring(0, _currentInput.Length - 1);
+                    InputText.text = _currentInput;
                 }
                 return;
             }
 
-            if (currentInput.Length < currentPrompt.Length)
+            if (_currentInput.Length < _currentPrompt.Length)
             {
-                currentInput += c;
-                inputText.text = currentInput;
+                _currentInput += c;
+                InputText.text = _currentInput;
             }
 
         }
@@ -220,7 +217,7 @@ public class PlayerTypingScript : MonoBehaviour
 
     public bool CodeValidity()
     {
-        if(currentInput == currentPrompt)
+        if(_currentInput == _currentPrompt)
         {
             return true;
         }
@@ -228,18 +225,18 @@ public class PlayerTypingScript : MonoBehaviour
     }
     public void InvisibleText()
     {
-        Color promptColor = promptText.color;
-        Color inputColor = inputText.color;
+        Color promptColor = PromptText.color;
+        Color inputColor = InputText.color;
         promptColor.a = inputColor.a = 0f;
-        promptText.color = promptColor;
-        inputText.color = inputColor;
+        PromptText.color = promptColor;
+        InputText.color = inputColor;
     }
     public void VisibleText()
     {
-        Color promptColor = promptText.color;
-        Color inputColor = inputText.color;
+        Color promptColor = PromptText.color;
+        Color inputColor = InputText.color;
         promptColor.a = inputColor.a = 1f;
-        promptText.color = promptColor;
-        inputText.color = inputColor;
+        PromptText.color = promptColor;
+        InputText.color = inputColor;
     }
 }

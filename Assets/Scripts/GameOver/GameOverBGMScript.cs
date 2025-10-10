@@ -1,18 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameOverBGMScript : MonoBehaviour
 {
-    public float fadeDuration = 6f, initialVolume;
-    public AudioManagerScript audioScript;
+    public float FadeDuration = 6f;
+    public float InitialVolume;
+    public AudioManagerScript AudioScript;
 
     void Start()
     {
-        if (audioScript == null)
-            audioScript = GameObject.Find("Audio Manager").GetComponent<AudioManagerScript>();
+        if (AudioScript == null)
+            AudioScript = GameObject.Find("Audio Manager").GetComponent<AudioManagerScript>();
 
-        initialVolume = audioScript.musicSource.volume;
+        InitialVolume = AudioScript.MusicSource.volume;
 
         StartCoroutine(FadeOut());
     }
@@ -21,20 +21,20 @@ public class GameOverBGMScript : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        audioScript.musicSource.clip = audioScript.gameOver;
-        audioScript.musicSource.loop = false;
-        float startVolume = audioScript.musicSource.volume;
-        audioScript.musicSource.Play();
+        AudioScript.MusicSource.clip = AudioScript.GameOver;
+        AudioScript.MusicSource.loop = false;
+        float startVolume = AudioScript.MusicSource.volume;
+        AudioScript.MusicSource.Play();
 
         float time = 0f;
-        while (time < fadeDuration)
+        while (time < FadeDuration)
         {
             time += Time.deltaTime;
-            audioScript.musicSource.volume = Mathf.Lerp(startVolume, 0f, time / fadeDuration);
+            AudioScript.MusicSource.volume = Mathf.Lerp(startVolume, 0f, time / FadeDuration);
             yield return null;
         }
 
-        audioScript.musicSource.volume = 0f;
-        audioScript.musicSource.Stop();
+        AudioScript.MusicSource.volume = 0f;
+        AudioScript.MusicSource.Stop();
     }
 }

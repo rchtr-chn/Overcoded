@@ -1,33 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TimerDisplayScript : MonoBehaviour
 {
-    public static TimerDisplayScript instance = null;
-    public WaveScript waveScript;
-    public PlayerMovementScript playerMovementScript;
-    public HighScoreScript highScoreScript;
-    public float timer = 0, counter;
-    float seconds, minutes, hours;
-    public Text textUI;
+    public static TimerDisplayScript Instance = null;
+    public WaveScript WaveScript;
+    public PlayerMovementScript PlayerMovementScript;
+    public HighScoreScript HighScoreScript;
+    public float Timer = 0, Counter;
+    private float _seconds, _minutes, _hours;
+    public Text TextUI;
     // Start is called before the first frame update
     void Start()
     {
-        if (waveScript == null)
-            waveScript = GameObject.Find("Player").GetComponent<WaveScript>();
-        if (playerMovementScript == null)
-            playerMovementScript = GameObject.Find("Player").GetComponent<PlayerMovementScript>();
+        if (WaveScript == null)
+            WaveScript = GameObject.Find("Player").GetComponent<WaveScript>();
+        if (PlayerMovementScript == null)
+            PlayerMovementScript = GameObject.Find("Player").GetComponent<PlayerMovementScript>();
 
-        textUI = GameObject.Find("Timer Text").GetComponent<Text>();
+        TextUI = GameObject.Find("Timer Text").GetComponent<Text>();
     }
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
@@ -36,31 +34,31 @@ public class TimerDisplayScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerMovementScript.isAlive && playerMovementScript != null)
+        if (PlayerMovementScript.IsAlive && PlayerMovementScript != null)
         {
-            timer = waveScript.totalElapsedTime;
-            seconds = Mathf.FloorToInt(timer % 60);
-            if (timer > 60)
+            Timer = WaveScript.TotalElapsedTime;
+            _seconds = Mathf.FloorToInt(Timer % 60);
+            if (Timer > 60)
             {
-                minutes = Mathf.FloorToInt(timer / 60);
+                _minutes = Mathf.FloorToInt(Timer / 60);
             }
-            if (timer > 3600)
-                hours = Mathf.FloorToInt(timer / (60 * 60));
+            if (Timer > 3600)
+                _hours = Mathf.FloorToInt(Timer / (60 * 60));
 
-            textUI.text = string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
+            TextUI.text = string.Format("{0:00}:{1:00}:{2:00}", _hours, _minutes, _seconds);
         }
         else
         {
-            if (highScoreScript == null)
-                highScoreScript = GameObject.Find("PlayerPrefs").GetComponent<HighScoreScript>();
+            if (HighScoreScript == null)
+                HighScoreScript = GameObject.Find("PlayerPrefs").GetComponent<HighScoreScript>();
 
-            highScoreScript.SaveHighScore(Mathf.FloorToInt(waveScript.totalElapsedTime));
-            highScoreScript.LoadHighScore();
+            HighScoreScript.SaveHighScore(Mathf.FloorToInt(WaveScript.TotalElapsedTime));
+            HighScoreScript.LoadHighScore();
 
-            counter += Time.deltaTime;
+            Counter += Time.deltaTime;
 
-            if (counter > 1)
-                textUI.color = Color.red;
+            if (Counter > 1)
+                TextUI.color = Color.red;
         }
     }
 }

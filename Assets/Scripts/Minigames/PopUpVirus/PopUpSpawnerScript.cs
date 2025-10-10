@@ -1,93 +1,92 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PopUpSpawnerScript : MonoBehaviour
 {
-    public float spawnRadius;
-    private Vector2 spawnPosition;
-    private Vector2 spawnerPos;
-    public Transform canvasTransform;
-    public List<GameObject> spawnList = new List<GameObject>();
-    public GameObject prefab;
-    public WaveScript waveScript;
-    int mockwave = 0;
-    float timer = 0;
-    float timerCap;
+    public float SpawnRadius = 100f;
+    private Vector2 _spawnPosition;
+    private Vector2 _spawnerPos;
+    public Transform CanvasTransform;
+    public List<GameObject> SpawnList = new List<GameObject>();
+    public GameObject Prefab;
+    public WaveScript WaveScript;
+    private int _mockwave = 0;
+    private float _timer = 0;
+    private float _timerCap;
     void Start()
     {
-        if (canvasTransform == null) GetComponent<Transform>();
-        if(waveScript == null) waveScript = GameObject.Find("Player").GetComponent<WaveScript>();
-        spawnerPos = transform.position;
+        if (CanvasTransform == null) GetComponent<Transform>();
+        if(WaveScript == null) WaveScript = GameObject.Find("Player").GetComponent<WaveScript>();
+        _spawnerPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (waveScript.currentWave < 4) return;
+        if (WaveScript.CurrentWave < 4) return;
 
-        switch(waveScript.currentWave)
+        switch(WaveScript.CurrentWave)
         {
             case 4:
-                timerCap = 7f;
+                _timerCap = 7f;
                 break;
             case 9:
-                timerCap = 8f;
+                _timerCap = 8f;
                 break;
             case 10:
-                timerCap = 9f;
+                _timerCap = 9f;
                 break;
         }
 
 
-        timer += Time.deltaTime;
-        if (timer > timerCap)
+        _timer += Time.deltaTime;
+        if (_timer > _timerCap)
         {
-            mockwave = 0;
-            timer = 0f;
+            _mockwave = 0;
+            _timer = 0f;
         }
 
-        if (mockwave < waveScript.currentWave && waveScript.currentWave > 3)
+        if (_mockwave < WaveScript.CurrentWave && WaveScript.CurrentWave > 3)
         {
-            if(waveScript.currentWave > 3 && waveScript.currentWave < 8)
+            if(WaveScript.CurrentWave > 3 && WaveScript.CurrentWave < 8)
             {
-                mockwave = waveScript.currentWave;
+                _mockwave = WaveScript.CurrentWave;
                 for(int i = 0; i < 1;i++)
                 {
-                    spawnList.Add(prefab);
+                    SpawnList.Add(Prefab);
                 }
             }
-            else if(waveScript.currentWave > 7 && waveScript.currentWave < 9)
+            else if(WaveScript.CurrentWave > 7 && WaveScript.CurrentWave < 9)
             {
-                mockwave = waveScript.currentWave;
+                _mockwave = WaveScript.CurrentWave;
                 for (int i = 0; i < 2; i++)
                 {
-                    spawnList.Add(prefab);
+                    SpawnList.Add(Prefab);
                 }
             }
-            else if (waveScript.currentWave == 9)
+            else if (WaveScript.CurrentWave == 9)
             {
-                mockwave = waveScript.currentWave;
+                _mockwave = WaveScript.CurrentWave;
                 for (int i = 0; i < 2; i++)
                 {
-                    spawnList.Add(prefab);
+                    SpawnList.Add(Prefab);
                 }
             }
-            else if (waveScript.currentWave == 10)
+            else if (WaveScript.CurrentWave == 10)
             {
-                mockwave = waveScript.currentWave;
+                _mockwave = WaveScript.CurrentWave;
                 for (int i = 0; i < 3; i++)
                 {
-                    spawnList.Add(prefab);
+                    SpawnList.Add(Prefab);
                 }
             }
-            else if (waveScript.currentWave > 10)
+            else if (WaveScript.CurrentWave > 10)
             {
                 int j = 0;
-                mockwave = waveScript.currentWave;
-                for (int i = 0; i < 3 + 1 * waveScript.currentWave - 10; i++)
+                _mockwave = WaveScript.CurrentWave;
+                for (int i = 0; i < 3 + 1 * WaveScript.CurrentWave - 10; i++)
                 {
-                    spawnList.Add(prefab);
+                    SpawnList.Add(Prefab);
                     j++;
                     if (j == 10) return;
                 }
@@ -99,17 +98,17 @@ public class PopUpSpawnerScript : MonoBehaviour
 
     void SpawnEnt()
     {
-        for (int i = 0; i < spawnList.Count; i++)
+        for (int i = 0; i < SpawnList.Count; i++)
         {
-            if (spawnList.Contains(prefab))
+            if (SpawnList.Contains(Prefab))
             {
-                GameObject popUp = (GameObject)Instantiate(spawnList[i], canvasTransform);
+                GameObject popUp = (GameObject)Instantiate(SpawnList[i], CanvasTransform);
                 RectTransform transform = popUp.GetComponent<RectTransform>();
-                spawnPosition = Random.insideUnitCircle * spawnRadius;
-                transform.anchoredPosition = spawnPosition;
+                _spawnPosition = Random.insideUnitCircle * SpawnRadius;
+                transform.anchoredPosition = _spawnPosition;
                 popUp.transform.localScale = Vector3.one;
 
-                spawnList.RemoveAt(0);
+                SpawnList.RemoveAt(0);
             }
         }
     }

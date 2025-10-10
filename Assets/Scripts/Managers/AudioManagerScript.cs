@@ -1,45 +1,44 @@
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.UI;
 
 public class AudioManagerScript : MonoBehaviour
 {
 
     [Header("--------------- Audio Source ---------------")]
-    public AudioSource musicSource;
-    [SerializeField] AudioSource whiteNoise;
+    public AudioSource MusicSource;
+    [SerializeField] AudioSource WhiteNoise;
     [SerializeField] AudioSource SFXSource;
 
     [Header("--------------- Audio Clip ---------------")]
-    public AudioClip backgroundNoise;
-    public AudioClip mainBgm;
-    public AudioClip mainBgmChaotic;
-    public AudioClip death;
-    public AudioClip gameOver;
-    public AudioClip correct;
-    public AudioClip incorrect;
-    public AudioClip mumSfx;
-    public AudioClip typing;
-    public AudioClip flyHit;
-    public AudioClip flyBuzz;
-    public AudioClip popUpSfx;
-    public AudioClip jump;
-    public AudioClip drinkCoffee;
-    public AudioClip openDoor;
-    public AudioClip chatPopUp;
-    public AudioClip yell;
+    public AudioClip BackgroundNoise;
+    public AudioClip MainBgm;
+    public AudioClip MainBgmChaotic;
+    public AudioClip Death;
+    public AudioClip GameOver;
+    public AudioClip Correct;
+    public AudioClip Incorrect;
+    public AudioClip MumSfx;
+    public AudioClip Typing;
+    public AudioClip FlyHit;
+    public AudioClip FlyBuzz;
+    public AudioClip PopUpSfx;
+    public AudioClip Jump;
+    public AudioClip DrinkCoffee;
+    public AudioClip OpenDoor;
+    public AudioClip ChatPopUp;
+    public AudioClip Yell;
 
 
 
     [Header("--------------- Audio slider ---------------")]
-    [SerializeField] public AudioMixer audioMixer;
+    [SerializeField] public AudioMixer AudioMixer;
 
-    public static AudioManagerScript instance;
+    public static AudioManagerScript Instance;
     private void Awake()
     {
-        if(instance == null)
+        if(Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
@@ -48,11 +47,11 @@ public class AudioManagerScript : MonoBehaviour
     }
     void Start()
     {
-        musicSource.clip = mainBgm;
-        whiteNoise.clip = backgroundNoise;
-        musicSource.loop = true;
-        musicSource.Play();
-        whiteNoise.Play();
+        MusicSource.clip = MainBgm;
+        WhiteNoise.clip = BackgroundNoise;
+        MusicSource.loop = true;
+        MusicSource.Play();
+        WhiteNoise.Play();
     }
     public void PlaySfx(AudioClip clip)
     {
@@ -60,11 +59,11 @@ public class AudioManagerScript : MonoBehaviour
     }
     public void setBGM(float volume)
     {
-        audioMixer.SetFloat("BGM", Mathf.Log10(volume) * 20);
+        AudioMixer.SetFloat("BGM", Mathf.Log10(volume) * 20);
     }
     public void setSFX(float volume)
     {
-        audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
+        AudioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
     }
 
 }

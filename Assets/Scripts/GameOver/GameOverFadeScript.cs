@@ -1,17 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameOverFadeScript : MonoBehaviour
 {
-    public Image uiImage;
-    public float fadeDuration = 2f;
+    public Image UIImage;
+    public float FadeDuration = 2f;
 
     private void Start()
     {
-        if (uiImage == null)
-            uiImage = GetComponent<Image>();
+        if (UIImage == null)
+            UIImage = GetComponent<Image>();
 
         StartCoroutine(FadeOut());
     }
@@ -23,15 +22,15 @@ public class GameOverFadeScript : MonoBehaviour
         
         
 
-        Color imageColor = uiImage.color;
+        Color imageColor = UIImage.color;
         float startAlpha = imageColor.a;
         float time = 0f;
 
-        while (time < fadeDuration)
+        while (time < FadeDuration)
         {
             time += Time.deltaTime;
             float newAlpha = Mathf.Lerp(startAlpha, 0f, time);
-            uiImage.color = new Color(imageColor.r, imageColor.g, imageColor.b, newAlpha);
+            UIImage.color = new Color(imageColor.r, imageColor.g, imageColor.b, newAlpha);
             yield return null;
         }
         gameObject.SetActive(false);

@@ -1,31 +1,30 @@
-using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerMovementScript : MonoBehaviour
 {
-    public Rigidbody2D rb;
-    public BoxCollider2D col;
-    private bool canJump = true;
-    private bool offGround = false;
-    public bool isAlive = true;
-    public float jumpForce;
-    public bool isBugged;
-    private bool afterBug;
+    public Rigidbody2D Rb;
+    public BoxCollider2D Col;
+    private bool _canJump = true;
+    private bool _offGround = false;
+    public bool IsAlive = true;
+    public float JumpForce = 13.5f;
+    public bool IsBugged = false;
+    private bool _afterBug;
 
-    public KeyCode jumpKey = KeyCode.UpArrow;
-    public KeyCode duckKey = KeyCode.DownArrow;
+    public KeyCode JumpKey = KeyCode.UpArrow;
+    public KeyCode DuckKey = KeyCode.DownArrow;
 
-    public WaveScript waveScript;
-    public AudioManagerScript audioScript;
+    public WaveScript WaveScript;
+    public AudioManagerScript AudioScript;
 
     private void Start()
     {
-        if(waveScript == null)
+        if(WaveScript == null)
         {
-            waveScript = GetComponent<WaveScript>();
+            WaveScript = GetComponent<WaveScript>();
         }
-        if(audioScript == null) audioScript = GameObject.Find("Audio Manager").GetComponent<AudioManagerScript>();
+        if(AudioScript == null) AudioScript = GameObject.Find("Audio Manager").GetComponent<AudioManagerScript>();
     }
 
 
@@ -49,15 +48,15 @@ public class PlayerMovementScript : MonoBehaviour
         //        DeletePrefabs();
         //    }
 
-            rb.gravityScale = 5f;
+            Rb.gravityScale = 5f;
 
-            if (Input.GetKeyDown(jumpKey) && canJump)
+            if (Input.GetKeyDown(JumpKey) && _canJump)
             {
                 Jump();
-                audioScript.PlaySfx(audioScript.jump);
+                AudioScript.PlaySfx(AudioScript.Jump);
             }
 
-            if (Input.GetKey(duckKey) && !offGround)
+            if (Input.GetKey(DuckKey) && !_offGround)
             {
                 Duck();
             }
@@ -73,13 +72,13 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void BugEvent()
     {
-        if(waveScript.totalElapsedTime % 15f < 1f && waveScript.totalElapsedTime > 1f && !isBugged)
+        if(WaveScript.TotalElapsedTime % 15f < 1f && WaveScript.TotalElapsedTime > 1f && !IsBugged)
         {
             //int rand = Random.Range(0, 5);
             //Debug.Log("HIT! RAND : " + rand);
             //if(rand == 4)
             //{
-                isBugged = true;
+                IsBugged = true;
             //}
         }
     }
@@ -87,9 +86,9 @@ public class PlayerMovementScript : MonoBehaviour
     private void Jump()
     {
         //Debug.Log("key was pressed");
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        canJump = false;
-        offGround = true;
+        Rb.velocity = new Vector2(Rb.velocity.x, JumpForce);
+        _canJump = false;
+        _offGround = true;
     }
 
     private void Duck()
@@ -116,14 +115,14 @@ public class PlayerMovementScript : MonoBehaviour
         if(collision.gameObject.name == "Road")
         {
             //Debug.Log("Can jump loh");
-            offGround = false;
-            canJump = true;
+            _offGround = false;
+            _canJump = true;
         }
         if(collision.gameObject.CompareTag("Obstacle"))
         {
-            isAlive = false;
-            audioScript.musicSource.Stop();
-            audioScript.PlaySfx(audioScript.death);
+            IsAlive = false;
+            AudioScript.MusicSource.Stop();
+            AudioScript.PlaySfx(AudioScript.Death);
             Debug.Log("GAME OVER!!!");
             SceneManager.LoadScene(2);
         }

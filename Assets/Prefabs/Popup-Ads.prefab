@@ -33,7 +33,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1458502484848096416}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -179,7 +178,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1458502484848096416}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -236,7 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30c85f1c19ebfc744a2ea60c365b53aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spritesList:
+  SpritesList:
   - {fileID: 961699526, guid: db85aeee03d51224584590f092f3cb50, type: 3}
   - {fileID: -1888242085, guid: db85aeee03d51224584590f092f3cb50, type: 3}
   - {fileID: -1968997837, guid: db85aeee03d51224584590f092f3cb50, type: 3}
@@ -244,7 +242,7 @@ MonoBehaviour:
   - {fileID: 2111516650, guid: db85aeee03d51224584590f092f3cb50, type: 3}
   - {fileID: -1720814379, guid: db85aeee03d51224584590f092f3cb50, type: 3}
   - {fileID: -366485282, guid: db85aeee03d51224584590f092f3cb50, type: 3}
-  banner: {fileID: 0}
+  Banner: {fileID: 0}
 --- !u!1 &7128454824058678577
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,7 +274,6 @@ RectTransform:
   - {fileID: 3364749925274951544}
   - {fileID: 2167572540050697128}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
